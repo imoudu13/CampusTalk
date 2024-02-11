@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>CampusTalk</title>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(html => {
+            document.body.insertAdjacentHTML('afterbegin', html);
+        });
+</script>
 
 </body>
 </html>

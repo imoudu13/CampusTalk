@@ -1,0 +1,35 @@
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+header {
+    padding: 0.5em;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+.left-links, .right-links {
+    display: flex;
+}
+.authenticate {
+    background-color: gold;
+    border-radius: 1em;
+    padding: 1em 2em 1em 2em;
+    float: right;
+    margin-right: 2em;
+}
+form {
+    margin: 0 auto;
+    text-align: center;
+}
+#search{
+    border-radius: 2em;
+    border-color: black;
+    width: 60em;
+    height: 2em;
+}
+a {
+    text-decoration: none; /* Remove underline */
+    color: black; /* Set your desired text color */
+}

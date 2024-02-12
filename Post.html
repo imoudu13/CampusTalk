@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/Post.css">
 </head>
 <body>
+    <header>
+        <script>
+            fetch('header.html')
+                .then(response => response.text())
+                .then(html => {
+                document.body.insertAdjacentHTML('afterbegin', html);
+                });
+        </script>
+    </header>
     <main>
         <h1>Title of the Post</h1>
 

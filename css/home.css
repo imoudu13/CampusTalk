@@ -1,3 +1,10 @@
 body{
-
+    display: flex;
+    flex-direction: column;
+}
+.side-container{
+    background-color: grey;
+}
+.main-container{
+    background-color: orange;
 }

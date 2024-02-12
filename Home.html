@@ -7,10 +7,8 @@
 </head>
 <body>
 
-
 <script>
-
-    <!-- This is how you include the header file in this html page-->
+    <!-- This is how you include the header file in this html page, put the path to the header file as a parameter in the fetch function-->
     fetch('header.html')
         .then(response => response.text())
         .then(html => {

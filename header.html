@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/header.css">
 </head>
 
 <body>
 <header>
-    <div class="left-links">
-        <img src="images/CampusTalkSmallLogo.png" alt="">
-    </div>
-    <form>
-        <label>
-            <input type="text" id="search"/>
-            <input type="submit"/>
-        </label>
+    <nav id="header-nav">
+        <div class="left-links">
+            <img src="images/icons8-blog-64.png" alt="">
+        </div>
+        <div class="search-bar">
+            <form>
+                <label>
+                    <input type="text" id="search" placeholder="Search CampusTalk"/>
+                </label>
+            </form>
+        </div>
+        <div class="authenticate">
+            <a href="#" >Log in</a>
+        </div>
+    </nav>
 
-    </form>
-
-    <div class="authenticate">
-        <a href="#">Log in/ Sign up</a>
-    </div>
 
 </header>
 </body>

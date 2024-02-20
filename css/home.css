@@ -11,25 +11,32 @@ header {
 }
 main {
     margin-top: 7.5em;
-    position: absolute;
     display: flex;
     width: 100%;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 .main-content{
     width: 50%;
 }
 .left, .right {
     margin-top: 0;
-    position: relative;
     width: 10%;
+    background-color: grey;
 }
 .right{
-    float: right;
     margin-left: 2.5%;
 }
 .left{
-    float: left;
     margin-right: 2.5%;
+}
+@media only screen and (max-width: 1200px){
+    .left{
+        display: none;
+    }
+}
+@media only screen and (max-width: 800px){
+    .right{
+        display: none;
+    }
 }

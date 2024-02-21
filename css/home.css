@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     background-color: #8598A6;
@@ -7,36 +11,64 @@ body {
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px;
 }
 main {
     margin-top: 7.5em;
     display: flex;
     width: 100%;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: space-around;
 }
 .main-content{
     width: 50%;
+    padding: 0 1% 0 1%;
 }
 .left, .right {
-    margin-top: 0;
+    margin: 0 2.5% 0 2.5%;
     width: 10%;
+    position: sticky;
+    align-self: flex-start;
+    top: 100px;
     background-color: grey;
 }
 .right{
-    margin-left: 2.5%;
 }
 .left{
-    margin-right: 2.5%;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
 }
+.post-container p img{
+    max-width: 100%;
+}
+.img-container{
+    background-color: rgb(0 0 0 / 50%);
+    display: flex;
+    justify-content: center;
+}
+
+
 @media only screen and (max-width: 1200px){
     .left{
         display: none;
     }
-}
-@media only screen and (max-width: 800px){
+    .main-content{
+        width: 70%;
+    }
     .right{
+        width: 20%;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .right {
         display: none;
+    }
+
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-content {
+        width: 80%;
+        margin: 20px;
     }
 }

@@ -24,17 +24,18 @@ main {
 }
 .left, .right {
     margin: 0 2.5% 0 2.5%;
-    width: 10%;
     position: sticky;
     align-self: flex-start;
     top: 100px;
     background-color: grey;
 }
 .right{
+    width: 150px;
 }
 .left{
     max-height: calc(100vh - 120px);
     overflow-y: auto;
+    width: 15%;
 }
 .post-container p img{
     max-width: 100%;
@@ -67,11 +68,8 @@ main {
     .main-content{
         width: 70%;
     }
-    .right{
-        width: 20%;
-    }
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 700px) {
     .right {
         display: none;
     }

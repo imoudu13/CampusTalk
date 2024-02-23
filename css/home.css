@@ -4,7 +4,7 @@
 
 body {
     display: flex;
-    background-color: #8598A6;
+    background-color: #ffffff;
     flex-direction: column;
     margin: 0;
 }
@@ -30,7 +30,7 @@ main {
     background-color: grey;
 }
 .right{
-    width: 150px;
+    width: 250px;
 }
 .left{
     max-height: calc(100vh - 120px);
@@ -39,6 +39,20 @@ main {
 }
 .post-container p img{
     max-width: 100%;
+}
+.post-container{
+    background-color: #8598A6;
+    margin: 1em 0 1em 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border-top: 1px solid ;
+}
+.post-container p{
+    color: black;
+}
+.post-container:hover{
+    background-color: white;
 }
 .img-container{
     background-color: rgb(0 0 0 / 50%);

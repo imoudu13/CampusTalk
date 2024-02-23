@@ -4,6 +4,7 @@
 #header-nav{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .search-bar{
     flex-grow: 1;
@@ -25,14 +26,18 @@ header {
     position: fixed;
     width: 100%;
     z-index: 1;
+    border-bottom: 1px solid #8598A6;
 }
 .authenticate {
     background-color: #063A61;
     display: flex;
     align-items: center;
-    border-radius: 10px;
-    padding-left: 2em;
-    padding-right: 2em;
+    border-radius: 40px;
+    width: 75px;
+    padding: 1em;
+}
+.authenticate:hover{
+    background-color: #336081;
 }
 
 .left-links, .authenticate{

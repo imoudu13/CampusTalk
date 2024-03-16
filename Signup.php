@@ -2,24 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Log In</title>
+    <title>Signup</title>
     <link rel="stylesheet" href="css/authentication.css">
 </head>
 <body>
     <img src="images/ubc.png" alt="">
+
+
+<h1> Welcome to CampusTalk!</h1>
+    <p>By continuing, you will be granted all user features to CampusTalk.</p>
     <form>
         <fieldset>
-            <legend>Log In</legend>
+            <legend>Sign up</legend>
             <label for="username">Username: </label>
             <input type="text" id="username">
 
             <label for="password">Password: </label>
             <input type="password" id="password">
 
+            <label for="email">Email: </label>
+            <input type="email" id="email">
+
+            <label for="student_no">Student Number: </label>
+            <input type="number" id="student_no">
+
             <input type="submit">
         </fieldset>
-        <a href="Signup.html">Click here to signup</a>
-    </form>
 
+        <a href="Login.php">Click here to login</a>
+    </form>
 </body>
 </html>

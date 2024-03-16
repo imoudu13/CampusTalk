@@ -22,7 +22,7 @@
             </form>
 
         </div>
-        <a href="Login.html">
+        <a href="Login.php">
             <div class="authenticate">
                 <p>Log in</p>
             </div>

@@ -57,6 +57,6 @@ CREATE TABLE Comments (
     FOREIGN KEY (postID) REFERENCES Posts(postID) ON DELETE CASCADE
 );
 
-INSERT INTO USERS(username, email, pass_word) VALUES('imoudu', 'imoudu@gmail.com', 'thegoat@23');
-INSERT INTO USERS(username, email, pass_word) VALUES('gavin', 'gavin@gmail.com', 'milkyway#14');
-INSERT INTO USERS(username, email, pass_word) VALUES('hadi', 'hadi@gmail.com', 'bestphotographer22');
+INSERT INTO USERS(username, email, userpassword) VALUES('imoudu', 'imoudu@gmail.com', 'thegoat@23');
+INSERT INTO USERS(username, email, userpassword) VALUES('gavin', 'gavin@gmail.com', 'milkyway#14');
+INSERT INTO USERS(username, email, userpassword) VALUES('hadi', 'hadi@gmail.com', 'bestphotographer22');

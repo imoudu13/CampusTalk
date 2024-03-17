@@ -8,7 +8,7 @@
 <body>
     <header>
         <script>
-            fetch('header.html')
+            fetch('header.php')
                 .then(response => response.text())
                 .then(html => {
                     document.body.insertAdjacentHTML('afterbegin', html);

@@ -60,7 +60,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <p class="text-center">Don't have an account? <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Click here to sign up</button></p>
+                <p class="text-center">Don't have an account? <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</button></p>
             </div>
         </div>
     </div>
@@ -91,6 +91,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <p class="text-center">Already have an account? <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button></p>
             </div>
         </div>
     </div>

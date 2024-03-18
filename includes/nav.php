@@ -18,8 +18,8 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <form class="d-flex me-2">
-                    <input class="form-control me-2" type="search" placeholder="Search" style="width: 275px;"> <!-- Adjusted width here -->
+                <form class="d-flex me-2 flex-grow-1">
+                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Search">
                 </form>
                 <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
                 <div class="dropdown">

@@ -86,6 +86,15 @@ CREATE TABLE UserCourse (
     FOREIGN KEY (courseID) REFERENCES Course(courseID) ON DELETE CASCADE
 );
 
+-- Table for the likes a post has
+CREATE TABLE Likes(
+    userID INT,
+    postID INT,
+    PRIMARY KEY(userID, postID),
+    FOREIGN KEY (userID) REFERENCES Users(userID),
+    FOREIGN KEY (postID) REFERENCES Posts(postID)
+);
+
 
 INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('imoudu','Imoudu', 'Ibrahim', 'imoudu@gmail.com', 'thegoat@13', TRUE);
 INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('gavin','Gavin', 'Ashworth',  'gavin@gmail.com', 'milkyway#14', TRUE);

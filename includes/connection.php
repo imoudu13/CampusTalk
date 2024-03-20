@@ -1,11 +1,6 @@
 <?php
-$hostname = "localhost";
-$username = "local";
-$password = "password";
-$database = "GuildTalk";
-
-function connectToDB($host, $username, $password, $db){
-    return new mysqli($host, $username, $password, $db);
+function connectToDB(){
+    return new mysqli("localhost", "root", "", "GuildTalk");
 }
 
 function close_db($conn) {

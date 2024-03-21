@@ -131,33 +131,7 @@
     <!--        <a href="Post.html"> </a>-->
     <div class="main-content">
         <button id="toggle-columns">Toggle Columns</button>
-        <a href="#">
-            <div class="post-container">
-                <p>Title of the Post</p>
-                <p>The media the user shared including an image if necessary</p>
-                <p class="img-container"><img src="../images/CampusTalkLogo.png" alt=""></p>
-            </div>
-        </a>
-        <a href="#">
-            <div class="post-container">
-                <p>Title of the Post</p>
-                <p>The media the user shared including an image if necessary</p>
-                <p class="img-container"><img src="../images/CampusTalkLogo.png" alt=""></p>
-            </div>
-        </a><a href="#">
-            <div class="post-container">
-                <p>Title of the Post</p>
-                <p>The media the user shared including an image if necessary</p>
-                <p class="img-container"><img src="../images/CampusTalkLogo.png" alt=""></p>
-            </div>
-        </a><a href="#">
-            <div class="post-container">
-                <p>Title of the Post</p>
-                <p>The media the user shared including an image if necessary</p>
-                <p class="img-container"><img src="../images/CampusTalkLogo.png" alt=""></p>
-            </div>
-        </a>
-        <a href="#">
+        <a href="post.php">
             <div class="post-container">
                 <p>Title of the Post</p>
                 <p>The media the user shared including an image if necessary</p>

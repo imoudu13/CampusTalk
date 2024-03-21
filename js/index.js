@@ -3,5 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.left').classList.toggle('collapsed');
         document.querySelector('.right').classList.toggle('collapsed');
     });
+
+
 });
 

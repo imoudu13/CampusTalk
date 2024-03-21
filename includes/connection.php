@@ -1,6 +1,6 @@
 <?php
 function connectToDB(){
-    return new mysqli("localhost", "root", "", "GuildTalk");
+    return new mysqli("localhost", "root", "", "CampusTalk");
 }
 
 function close_db($conn) {

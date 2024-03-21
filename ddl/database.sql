@@ -17,7 +17,7 @@ CREATE TABLE Users (
     lastname VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     userpassword VARCHAR(255) NOT NULL,
-    profileimage BLOB, -- this stores the image in our system
+    profileimage LONGBLOB, -- this stores the image in our system
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     isAdmin BOOLEAN DEFAULT FALSE
 );
@@ -49,7 +49,7 @@ CREATE TABLE Posts (
     userID INT,
     departmentID INT NOT NULL,
     courseID INT,
-    postImage BLOB, -- this stores the image in our system
+    postImage LONGBLOB, -- this stores the image in our system
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
     FOREIGN KEY (courseID) REFERENCES Course(courseID) ON DELETE CASCADE,

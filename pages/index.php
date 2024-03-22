@@ -1,5 +1,9 @@
 <?php require_once('../includes/header.php'); ?>
-
+<link href="../css/index.css" rel="stylesheet">
+<script src="../js/index.js"></script>
+</head>
+<body>
+<?php require_once('../includes/nav.php'); ?>
 <main>
     <div class="left">
         <div class = "sidebar-content">
@@ -12,7 +16,7 @@
                 </p>
             </div>
             <div class = "left-sidebar-topic sidebar-border-top">
-                <p class = "sidebar-item left-item topic-header">
+                <p class = "topic-header">
                     <a href="#">Major</a>
                 </p>
                 <p class = "sidebar-item left-item ">

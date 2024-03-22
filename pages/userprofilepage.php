@@ -1,5 +1,7 @@
 <?php require_once('../includes/header.php'); ?>
-
+    </head>
+    <body>
+<?php require_once('../includes/nav.php'); ?>
 // need to get connection from db
 
 <?

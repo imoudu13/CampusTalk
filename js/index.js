@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 function displayPostsOnLoad(){
-    alert("jeff1");
     let postsContainer = document.querySelector('.posts-container');
 
     // Make an AJAX request to fetch posts data from get_posts.php
@@ -30,7 +29,8 @@ function displayPostsOnLoad(){
 
                 let titleElement = document.createElement('h2');
                 titleElement.classList.add('post-title');
-                titleElement.textContent = post.title;
+                titleElement.innerHTML = post.title + " - <span style='font-size: 0.5em;'>" + post.departmentName + "</span>";
+
 
                 let contentElement = document.createElement('p');
                 contentElement.classList.add('post-text');

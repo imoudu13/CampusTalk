@@ -74,6 +74,9 @@ main {
 .sidebar-item{
     padding: 0.25em;
 }
+.topic-header{
+    margin-left: 0.25em;
+}
 .sidebar-item a{
     height: 100%;
     width: 100%;

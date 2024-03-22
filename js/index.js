@@ -4,16 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.right').classList.toggle('collapsed');
     });
     //display most recent posts on page load. This is for registered and non-registered users
-    displayPostsOnLoad();
+    const initialPostDepartment = "all"
+    displayPostsOnLoad(initialPostDepartment);
     //display all departments on load
     displayDepartmentsOnLoad();
 });
-function displayPostsOnLoad(){
+function displayPostsOnLoad(department){
     let postsContainer = document.querySelector('.posts-container');
-
+    postsContainer.innerHTML = '';
     // Make an AJAX request to fetch posts data from get_posts.php
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../processing/get_posts.php', true);
+    xhr.open('GET', `../processing/get_posts.php?department=${department}`, true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 400) {
             // Parse the JSON response. This will return an array of posts
@@ -63,7 +64,6 @@ function displayPostsOnLoad(){
 
 function displayDepartmentsOnLoad(){
     let departmentContainer = document.querySelector('#department-container');
-
     // Make an AJAX request to fetch posts data from get_posts.php
     let xhr = new XMLHttpRequest();
     xhr.open('GET', '../processing/get_departments.php', true);
@@ -79,10 +79,12 @@ function displayDepartmentsOnLoad(){
                 departmentP.classList.add('sidebar-item', 'left-item');
 
                 let link = document.createElement('a');
-                link.setAttribute('href', '#');
                 link.setAttribute('data-id', department.departmentID);
+                link.setAttribute('href','#');
                 link.textContent = department.departmentName;
-
+                link.onclick = function() {
+                    displayPostsOnLoad(this.getAttribute('data-id'));
+                };
 
 
                 // Append elements to the container

@@ -3,13 +3,21 @@ require_once('../includes/connection.php');
 
 function getPosts() {
     $conn = connectToDB();
-
+    // Check if 'department' is set in the GET request
+    if (isset($_GET['department'])) {
+        $department = $_GET['department'];
+        if ($department !== 'all') {
+            $sql = "SELECT * FROM Posts WHERE departmentID = $department LIMIT 1000";
+        } else {
+            $sql = "SELECT * FROM Posts LIMIT 1000";
+        }
+    } else {
+        $sql = "SELECT * FROM Posts LIMIT 1000";
+    }
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
-    $sql = "SELECT * FROM Posts LIMIT 1000";
     $result = $conn->query($sql);
     $posts = [];
 

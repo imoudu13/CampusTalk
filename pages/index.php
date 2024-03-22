@@ -1,5 +1,9 @@
 <?php require_once('../includes/header.php'); ?>
-
+<link href="../css/index.css" rel="stylesheet">
+<script src="../js/index.js"></script>
+</head>
+<body>
+<?php require_once('../includes/nav.php'); ?>
 <main>
     <div class="left">
         <div class = "sidebar-content">
@@ -12,108 +16,12 @@
                 </p>
             </div>
             <div class = "left-sidebar-topic sidebar-border-top">
-                <p class = "sidebar-item left-item topic-header">
+                <p class = "topic-header">
                     <a href="#">Major</a>
                 </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Science</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Human Kinetics</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Management</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Arts</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Engineering</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Economics</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Education</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Nursing</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Politics</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Computer Science</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Management</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Ecology</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">General Science</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Medicine</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Microbiology</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Psychology</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Zoology</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Anthropology</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Cultural Studies</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">English</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Gender Studies</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Philosophy</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Sociology</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Chemistry</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Mathematics</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Physics</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Statistics</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Data Science</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">History</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Indigenous Studies</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">International Relations</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">French</a>
-                </p>
-                <p class = "sidebar-item left-item ">
-                    <a href="#">Languages</a>
-                </p>
+                <div id = "department-container">
+
+                </div>
             </div>
             <div class = "left-sidebar-topic sidebar-border-top">
                 <p class = "sidebar-item left-item topic-header">

@@ -131,13 +131,9 @@
     <!--        <a href="Post.html"> </a>-->
     <div class="main-content">
         <button id="toggle-columns">Toggle Columns</button>
-        <a href="post.php">
-            <div class="post-container">
-                <p>Title of the Post</p>
-                <p>The media the user shared including an image if necessary</p>
-                <p class="img-container"><img src="../images/CampusTalkLogo.png" alt=""></p>
-            </div>
-        </a>
+        <div class="posts-container">
+            <!--Filled by get_posts and index.js -->
+        </div>
     </div>
     <div class="right">
         <p class = "sidebar-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque id nibh tortor id aliquet. In vitae turpis massa sed elementum. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Hac habitasse platea dictumst vestibulum rhoncus est. Sit amet risus nullam eget felis eget nunc lob</p>

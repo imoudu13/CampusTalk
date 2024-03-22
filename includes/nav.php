@@ -1,4 +1,5 @@
 <!--Bootstrap nav bar-->
+<head> <script src="../js/register.js"></script></head>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color: #27374D !important;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">GuildTalk</a>
@@ -76,18 +77,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
             </div>
             <div class="modal-body">
-                <form action="../processing/signup.php" method="POST">
+                <form action="javascript:void(0);" method="POST" id="signupform">
                     <div class="mb-3">
-                        <label for="exampleInputName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="exampleInputName">
+                        <label for="username" class="form-label" id="errorMessage">Username</label>
+                        <input type="text" class="form-control" name="username" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail">
+                        <label for="firstname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="firstname" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword">
+                        <label for="lastname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="lastname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmpassword" class="form-label">Confirm Your Password</label>
+                        <input type="password" class="form-control" name="confirmpassword" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>

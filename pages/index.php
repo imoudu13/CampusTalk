@@ -17,7 +17,7 @@
             </div>
             <div class = "left-sidebar-topic sidebar-border-top">
                 <p class = "topic-header">
-                    <a href="#">Major</a>
+                    <span style="color: white">Major</span>
                 </p>
                 <div id = "department-container">
 

@@ -44,7 +44,7 @@ CREATE TABLE Course (
 -- Table for storing posts
 CREATE TABLE Posts (
     postID INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
+    title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     userID INT,
     departmentID INT NOT NULL,

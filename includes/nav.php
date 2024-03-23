@@ -1,8 +1,11 @@
 <!--Bootstrap nav bar-->
-<head> <script src="../js/register.js"></script></head>
+<head> 
+    <script src="../js/register.js"></script>
+    <script src="../js/login.js"></script>
+</head>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color: #27374D !important;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">GuildTalk</a>
+        <a class="navbar-brand" href="#">CampusTalk</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,14 +25,14 @@
                 <form class="d-flex me-2 flex-grow-1">
                     <input class="form-control me-2 flex-grow-1" type="search" placeholder="Search">
                 </form>
-                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginbutton">Login</button>
                 <div class="dropdown">
                     <button class="btn btn-outline-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
                         <i class="bi bi-three-dots-vertical"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#">Profile Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                        <li><a class="dropdown-item" href="#" id="logout">Sign Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -48,14 +51,15 @@
             </div>
             <div class="modal-body">
                 <!-- Your login form goes here -->
-                <form action="../processing/login.php" method="POST">
+                <!-- The action is to ensure that javascript catches the form on submit -->
+                <form action="javascript:void(0);" id="loginform" method="POST">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1">
+                        <label for="username" class="form-label" id="usernamelabel">Username</label>
+                        <input type="text" class="form-control" id="username" name="username">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="pw" class="form-label" id="passwordlabel">Password</label>
+                        <input type="password" class="form-control" id="pw" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -77,6 +81,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
             </div>
             <div class="modal-body">
+                <!-- The action is to ensure that javascript catches the form on submit -->
                 <form action="javascript:void(0);" method="POST" id="signupform">
                     <div class="mb-3">
                         <label for="username" class="form-label" id="errorMessage">Username</label>

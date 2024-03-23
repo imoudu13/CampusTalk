@@ -1,5 +1,6 @@
 <?php
 include("../includes/connection.php");
+include("../processing/login.php");
 
 //try inserting into the db. If the username is not unique there will be an error, 
 $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
@@ -16,7 +17,7 @@ try {
     // Create connection
     $conn = connectToDB();
 
-    // Check connection
+    // Check for connection error
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
@@ -39,7 +40,16 @@ try {
             throw new Exception("Error in executing statement: " . $stmt->error);
         }
     } else {
-        // Successful insertion, send success message
+        // Successful insertion, log user in then send success message
+        $sql = "SELECT userID FROM Users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $userID;
+        $stmt->bind_result($userID);
+        $stmt->fetch();
+
+        login($username, $userID, 0);
         echo json_encode(array("success" => true, "redirect" => "index.php"));
     }
 

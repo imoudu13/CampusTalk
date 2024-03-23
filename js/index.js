@@ -63,7 +63,10 @@ function displayPostsOnLoad(department){
                 let likeButton = document.createElement('button');
                 likeButton.classList.add('btn', 'btn-primary', 'like-btn');
                 likeButton.setAttribute('data-post-id', post.postID);
-                likeButton.textContent = 'Like ';
+                likeButton.textContent = 'Like';
+                if(post.isLiked){
+                    likeButton.classList.add('liked');
+                }
                 likeButton.addEventListener('click', function() {
                     likePost(this.getAttribute('data-post-id'));
                 });
@@ -143,7 +146,11 @@ function likePost(postId) {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.isLiked) {
+            if (data.error) {
+                // Alert the user to log in
+                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+            } else if (data.isLiked) {
                 // Highlight the like button
                 highlightLikeButton(postId);
             } else {
@@ -156,6 +163,7 @@ function likePost(postId) {
             alert('An error occurred while liking the post. Please try again.');
         });
 }
+
 
 function highlightLikeButton(postId) {
     const likeButton = document.querySelector(`.like-btn[data-post-id="${postId}"]`);

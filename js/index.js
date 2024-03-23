@@ -23,16 +23,16 @@ function displayPostsOnLoad(department){
             // Iterate through the posts and display them
             posts.forEach(function(post) {
                 // Create HTML elements for post title, content, and image
-                let link = document.createElement('a');
-                link.setAttribute('href', 'post.php');
+                let link = document.createElement('div');
+                link.classList.add('post-link');
 
                 let postContainer = document.createElement('div');
                 postContainer.classList.add('post-container');
+                postContainer.setAttribute('data-id', post.postID);
 
                 let titleElement = document.createElement('h2');
                 titleElement.classList.add('post-title');
                 titleElement.innerHTML = post.title + " - <span style='font-size: 0.5em;'>" + post.departmentName + "</span>";
-
 
                 let contentElement = document.createElement('p');
                 contentElement.classList.add('post-text');
@@ -44,14 +44,41 @@ function displayPostsOnLoad(department){
                 let imageElement = document.createElement('img');
                 imageElement.src = 'data:image/png;base64,' + post.postImage;
 
+                // Create container for user input (comments and like button)
+                let userInputContainer = document.createElement('div');
+                userInputContainer.classList.add('user-input-post');
+
+                // Create comment input
+                let commentInput = document.createElement('input');
+                commentInput.classList.add('form-control', 'comment-input');
+                commentInput.setAttribute('type', 'text');
+                commentInput.setAttribute('placeholder', 'Write a comment...');
+
+                // Create the like button
+                let likeButton = document.createElement('button');
+                likeButton.classList.add('btn', 'btn-primary', 'like-btn');
+                likeButton.setAttribute('data-post-id', post.postID);
+                likeButton.textContent = 'Like ';
+
+                let likeCount = document.createElement('span');
+                likeCount.classList.add('badge', 'bg-secondary', 'like-count');
+                likeCount.textContent = "Number of likes";
+                likeButton.appendChild(likeCount);
+
+                // Append comment input and like button to the user input container
+                userInputContainer.appendChild(commentInput);
+                userInputContainer.appendChild(likeButton);
+
                 // Append elements to the container
                 imageContainer.appendChild(imageElement);
                 postContainer.appendChild(titleElement);
                 postContainer.appendChild(contentElement);
                 postContainer.appendChild(imageContainer);
+                postContainer.appendChild(userInputContainer); // Append the user input container here
                 link.appendChild(postContainer);
                 postsContainer.appendChild(link);
             });
+
         } else {
             console.error('Error fetching posts:', xhr.statusText);
         }

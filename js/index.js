@@ -23,16 +23,22 @@ function displayPostsOnLoad(department){
             // Iterate through the posts and display them
             posts.forEach(function(post) {
                 // Create HTML elements for post title, content, and image
-                let link = document.createElement('a');
-                link.setAttribute('href', 'post.php');
+                let link = document.createElement('div');
+                link.classList.add('post-link');
+
+                link.addEventListener('click', function(event) {
+                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input')) {
+                        window.location.href = 'post.php'; // Redirect to post.php
+                    }
+                });
 
                 let postContainer = document.createElement('div');
                 postContainer.classList.add('post-container');
+                postContainer.setAttribute('data-id', post.postID);
 
                 let titleElement = document.createElement('h2');
                 titleElement.classList.add('post-title');
                 titleElement.innerHTML = post.title + " - <span style='font-size: 0.5em;'>" + post.departmentName + "</span>";
-
 
                 let contentElement = document.createElement('p');
                 contentElement.classList.add('post-text');
@@ -44,11 +50,32 @@ function displayPostsOnLoad(department){
                 let imageElement = document.createElement('img');
                 imageElement.src = 'data:image/png;base64,' + post.postImage;
 
-                // Append elements to the container
+                let userInputContainer = document.createElement('div');
+                userInputContainer.classList.add('user-input-post');
+
+                let commentInput = document.createElement('input');
+                commentInput.classList.add('form-control', 'comment-input');
+                commentInput.setAttribute('type', 'text');
+                commentInput.setAttribute('placeholder', 'Write a comment...');
+
+                let likeButton = document.createElement('button');
+                likeButton.classList.add('btn', 'btn-primary', 'like-btn');
+                likeButton.setAttribute('data-post-id', post.postID);
+                likeButton.textContent = 'Like ';
+
+                let likeCount = document.createElement('span');
+                likeCount.classList.add('badge', 'bg-secondary', 'like-count');
+                likeCount.textContent = "Number of likes";
+                likeButton.appendChild(likeCount);
+
+                userInputContainer.appendChild(commentInput);
+                userInputContainer.appendChild(likeButton);
+
                 imageContainer.appendChild(imageElement);
                 postContainer.appendChild(titleElement);
                 postContainer.appendChild(contentElement);
                 postContainer.appendChild(imageContainer);
+                postContainer.appendChild(userInputContainer);
                 link.appendChild(postContainer);
                 postsContainer.appendChild(link);
             });
@@ -61,6 +88,7 @@ function displayPostsOnLoad(department){
     };
     xhr.send();
 }
+
 
 function displayDepartmentsOnLoad(){
     let departmentContainer = document.querySelector('#department-container');

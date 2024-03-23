@@ -82,6 +82,11 @@ main {
     width: 100%;
     display: block;
 }
+.user-input-post{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .sidebar-item:hover{
     background-color: #336181;
 }

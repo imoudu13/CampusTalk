@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     displayPostsOnLoad(initialPostDepartment);
     //display all departments on load
     displayDepartmentsOnLoad();
+
+
 });
 function displayPostsOnLoad(department){
     let postsContainer = document.querySelector('.posts-container');
@@ -62,6 +64,9 @@ function displayPostsOnLoad(department){
                 likeButton.classList.add('btn', 'btn-primary', 'like-btn');
                 likeButton.setAttribute('data-post-id', post.postID);
                 likeButton.textContent = 'Like ';
+                likeButton.addEventListener('click', function() {
+                    likePost(this.getAttribute('data-post-id'));
+                });
 
                 let likeCount = document.createElement('span');
                 likeCount.classList.add('badge', 'bg-secondary', 'like-count');
@@ -127,4 +132,37 @@ function displayDepartmentsOnLoad(){
         console.error('Error fetching posts:', xhr.statusText);
     };
     xhr.send();
+}
+function likePost(postId) {
+    fetch('../processing/like_post.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `postId=${postId}`,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.isLiked) {
+                // Highlight the like button
+                highlightLikeButton(postId);
+            } else {
+                // Unhighlight the like button
+                unhighlightLikeButton(postId);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while liking the post. Please try again.');
+        });
+}
+
+function highlightLikeButton(postId) {
+    const likeButton = document.querySelector(`.like-btn[data-post-id="${postId}"]`);
+    likeButton.classList.add('liked');
+}
+
+function unhighlightLikeButton(postId) {
+    const likeButton = document.querySelector(`.like-btn[data-post-id="${postId}"]`);
+    likeButton.classList.remove('liked');
 }

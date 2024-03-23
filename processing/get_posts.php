@@ -50,6 +50,9 @@ function getPosts() {
                 'createdAt' => $row['createdAt']
             ];
             $posts[] = $post;
+
+            //check if the post has been liked by the user
+
         }
     }
 

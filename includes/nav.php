@@ -2,12 +2,14 @@
 session_start();
 
 // Include login.php
-include("../processing/login.php");
+include ("../processing/login.php");
 ?>
 <!--Bootstrap nav bar-->
-<head> 
+
+<head>
     <script src="../js/register.js"></script>
     <script src="../js/login.js"></script>
+    <script src="../js/createpost.js"></script>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color: #27374D !important;">
     <div class="container-fluid">
@@ -31,10 +33,13 @@ include("../processing/login.php");
                 <form class="d-flex me-2 flex-grow-1">
                     <input class="form-control me-2 flex-grow-1" type="search" placeholder="Search">
                 </form>
-                <?php if(isset($_SESSION['username'])) { ?>
+                <?php if (isset ($_SESSION['username'])) { ?>
                     <!-- Dropdown for logged-in users -->
+                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#createPostModal"
+                        id="createpost">Create a Post</button>
                     <div class="dropdown">
-                        <button class="btn btn-outline-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                        <button class="btn btn-outline-light" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown">
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -44,7 +49,8 @@ include("../processing/login.php");
                     </div>
                 <?php } else { ?>
                     <!-- Login button for guests -->
-                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginbutton">Login</button>
+                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        id="loginbutton">Login</button>
                 <?php } ?>
             </div>
         </div>
@@ -76,7 +82,51 @@ include("../processing/login.php");
                 </form>
             </div>
             <div class="modal-footer">
-                <p class="text-center">Don't have an account? <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</button></p>
+                <p class="text-center">Don't have an account? <button type="button" class="btn btn-link"
+                        data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- This is the modal for creating a post -->
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPostModalLabel">Create Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form action="javascript:void(0);" method="POST" id="create-post-form">
+                    <div class="mb-3">
+                        <label for="postTitle" class="form-label" id="title-label">Title</label>
+                        <input type="text" class="form-control" id="post-title" name="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="postContent" class="form-label" id="content-label">Content</label>
+                        <textarea class="form-control" id="postContent" rows="3" name="content"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postImage" class="form-label" id="image-label">Upload Image</label>
+                        <input type="file" class="form-control" id="postImage" accept="image/*" name="imageupload">
+                    </div>
+                    <div class="mb-3">
+                        <label for="departmentSelect" class="form-label">Select a Department</label>
+                        <select class="form-select" id="departmentSelect" name="department">
+                            <option value="1" selected>Department 1</option>
+                            <option value="2">Department 2</option>
+                            <option value="3">Department 3</option>
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submit-post">Save Post</button>
             </div>
         </div>
     </div>
@@ -84,12 +134,12 @@ include("../processing/login.php");
 
 <!-- Signup Popup Modal -->
 <!-- Data will get sent to signup.php-->
-<div class="modal fade" id="signupModal" tabindex="-1" >
+<div class="modal fade" id="signupModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <!-- The action is to ensure that javascript catches the form on submit -->
@@ -122,7 +172,8 @@ include("../processing/login.php");
                 </form>
             </div>
             <div class="modal-footer">
-                <p class="text-center">Already have an account? <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button></p>
+                <p class="text-center">Already have an account? <button type="button" class="btn btn-link"
+                        data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button></p>
             </div>
         </div>
     </div>

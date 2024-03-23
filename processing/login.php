@@ -75,6 +75,6 @@ try {
     }
 } catch (Exception $e) {
     // Handle exception
-    echo json_encode(array("error" => $e->getMessage()));
+    echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
 }
 

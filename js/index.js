@@ -79,7 +79,7 @@ function displayPostsOnLoad(department){
                 link.appendChild(postContainer);
                 postsContainer.appendChild(link);
             });
-        } else {
+        }    else {
             console.error('Error fetching posts:', xhr.statusText);
         }
     };

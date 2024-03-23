@@ -16,6 +16,7 @@ function getPosts() {
     }
     // Check connection
     if ($conn->connect_error) {
+        echo "<script> console.log('error connecting'); </script>";
         die("Connection failed: " . $conn->connect_error);
     }
     $result = $conn->query($sql);
@@ -55,6 +56,5 @@ function getPosts() {
     close_db($conn);
     return $posts;
 }
-
 //echo the json encoded string
 echo json_encode(getPosts());

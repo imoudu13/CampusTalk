@@ -26,6 +26,12 @@ function displayPostsOnLoad(department){
                 let link = document.createElement('div');
                 link.classList.add('post-link');
 
+                link.addEventListener('click', function(event) {
+                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input')) {
+                        window.location.href = 'post.php'; // Redirect to post.php
+                    }
+                });
+
                 let postContainer = document.createElement('div');
                 postContainer.classList.add('post-container');
                 postContainer.setAttribute('data-id', post.postID);
@@ -44,17 +50,14 @@ function displayPostsOnLoad(department){
                 let imageElement = document.createElement('img');
                 imageElement.src = 'data:image/png;base64,' + post.postImage;
 
-                // Create container for user input (comments and like button)
                 let userInputContainer = document.createElement('div');
                 userInputContainer.classList.add('user-input-post');
 
-                // Create comment input
                 let commentInput = document.createElement('input');
                 commentInput.classList.add('form-control', 'comment-input');
                 commentInput.setAttribute('type', 'text');
                 commentInput.setAttribute('placeholder', 'Write a comment...');
 
-                // Create the like button
                 let likeButton = document.createElement('button');
                 likeButton.classList.add('btn', 'btn-primary', 'like-btn');
                 likeButton.setAttribute('data-post-id', post.postID);
@@ -65,20 +68,17 @@ function displayPostsOnLoad(department){
                 likeCount.textContent = "Number of likes";
                 likeButton.appendChild(likeCount);
 
-                // Append comment input and like button to the user input container
                 userInputContainer.appendChild(commentInput);
                 userInputContainer.appendChild(likeButton);
 
-                // Append elements to the container
                 imageContainer.appendChild(imageElement);
                 postContainer.appendChild(titleElement);
                 postContainer.appendChild(contentElement);
                 postContainer.appendChild(imageContainer);
-                postContainer.appendChild(userInputContainer); // Append the user input container here
+                postContainer.appendChild(userInputContainer);
                 link.appendChild(postContainer);
                 postsContainer.appendChild(link);
             });
-
         } else {
             console.error('Error fetching posts:', xhr.statusText);
         }
@@ -88,6 +88,7 @@ function displayPostsOnLoad(department){
     };
     xhr.send();
 }
+
 
 function displayDepartmentsOnLoad(){
     let departmentContainer = document.querySelector('#department-container');

@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+// Include login.php
+include("../processing/login.php");
+?>
 <!--Bootstrap nav bar-->
 <head> 
     <script src="../js/register.js"></script>
@@ -25,16 +31,21 @@
                 <form class="d-flex me-2 flex-grow-1">
                     <input class="form-control me-2 flex-grow-1" type="search" placeholder="Search">
                 </form>
-                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginbutton">Login</button>
-                <div class="dropdown">
-                    <button class="btn btn-outline-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-                        <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Profile Settings</a></li>
-                        <li><a class="dropdown-item" href="#" id="logout">Sign Out</a></li>
-                    </ul>
-                </div>
+                <?php if(isset($_SESSION['username'])) { ?>
+                    <!-- Dropdown for logged-in users -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profile Settings</a></li>
+                            <li><a class="dropdown-item" href="#" id="logout">Sign Out</a></li>
+                        </ul>
+                    </div>
+                <?php } else { ?>
+                    <!-- Login button for guests -->
+                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginbutton">Login</button>
+                <?php } ?>
             </div>
         </div>
     </div>

@@ -1,5 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('loginform').addEventListener('submit', submission);
+
+    const logoutButton = document.getElementById("logout");
+    if (logoutButton){
+        // Logout button click event
+        document.getElementById("logout").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Make an AJAX request to logout.php
+            fetch('../processing/logout.php', {
+                method: 'GET',
+            })
+                .then(response => {
+                    // Check if the response is not ok
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Since logout.php will redirect, we don't need to parse the response
+                    // Handle the redirect directly
+                    window.location.href = response.url; // Redirect to the specified URL after logout
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle network errors here
+                    alert('An error occurred while logging out. Please try again.');
+                });
+        });
+    }
+
+
 });
 
 function submission(e) {

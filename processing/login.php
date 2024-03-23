@@ -1,6 +1,4 @@
 <?php
-
-//include the db connection file
 include ("../includes/connection.php");
 
 // This is the function that logs a user in, it creates a session, give it a timeout and stores the users information in the session so we can use it in other places
@@ -29,63 +27,54 @@ $referrer = isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index
 
 // start connecting to the db
 try {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-    $conn = connectToDB();
+        $conn = connectToDB();
 
-    // throw an error incase it can't connect to the db
-    if ($conn->connect_error) {
-        throw new Exception("Connection failed: " . $conn->connect_error);
-    }
-
-    // this retrieves a tuple from the db using the entered username, if the user in the db it should return exactly one tuple
-    // otherwise it returns nothing. we'll use that to know if the username exists in the db
-    $query = "SELECT userID, userpassword, isAdmin FROM Users WHERE username = ?;";
-
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $username);
-
-    $stmt->execute();
-
-    $stmt->store_result();
-
-    // get the number of rows
-    $numberOfRows = $stmt->num_rows;
-
-    // if the number if rows is nothing that means the username doesn't exist in the db
-    if ($numberOfRows == 0) {
-        // so send a message back to js saying so
-        echo json_encode(array("error" => "no result", "redirect" => "$referrer"));
-    } else {
-        $userID;
-        $userpassword;
-        $isAdmin;
-
-        // otherwise the continue processing to see if the password is correct
-        $stmt->bind_result($userID, $userpassword, $isAdmin);
-        
-        // Fetch the result
-        $stmt->fetch();
-
-        //hash the password here
-
-        if($userpassword == $password){ // indicates a successful log in procedure
-            // log the user in 
-            login($username, $userID, $isAdmin);
-            // send a success message
-            echo json_encode(array("success" => "welcome", "redirect" => "$referrer"));
-        }else{  // means the passwords do not match
-            // send a message back about password being incorrect
-            echo json_encode(array("error" => "incorrect password", "password" => "$userpassword", "redirect" => "$referrer"));
+        // throw an error incase it can't connect to the db
+        if ($conn->connect_error) {
+            throw new Exception("Connection failed: " . $conn->connect_error);
         }
+
+        $query = "SELECT userID, userpassword, isAdmin FROM Users WHERE username = ?;";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $username);
+
+        $stmt->execute();
+
+        $stmt->store_result();
+
+        $numberOfRows = $stmt->num_rows;
+
+        if ($numberOfRows == 0) {
+            echo json_encode(array("error" => "no result", "redirect" => "$referrer"));
+        } else {
+            $userID;
+            $userpassword;
+            $isAdmin;
+
+            $stmt->bind_result($userID, $userpassword, $isAdmin);
+
+            $stmt->fetch();
+
+            if($userpassword == $password){
+                login($username, $userID, $isAdmin);
+                echo json_encode(array("success" => "welcome", "redirect" => "$referrer"));
+            } else {
+                echo json_encode(array("error" => "incorrect password", "password" => "$userpassword", "redirect" => "$referrer"));
+            }
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        echo json_encode(array("error" => "missing data", "redirect" => "$referrer"));
     }
-
-
-    $stmt->close();
-    $conn->close();
 } catch (Exception $e) {
-
+    // Handle exception
+    echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
 }
-
 

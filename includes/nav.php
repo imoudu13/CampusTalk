@@ -48,7 +48,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Profile Settings</a></li>
+                            <li><a class="dropdown-item" href="../pages/userprofilepage.php">Profile Settings</a></li>
                             <li><a class="dropdown-item" href="#" id="logout">Sign Out</a></li>
                             <?php if ($_SESSION['isAdmin'] == 1) { ?>
                                 <li><a class="dropdown-item" href="../pages/admin_page.php">Admin Page</a></li>

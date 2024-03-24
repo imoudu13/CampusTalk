@@ -9,13 +9,13 @@
     <main>
         <h1>My Profile</h1>
         <div>
-            <p><strong>Username: </strong><span id = "upp"></span></p>
+            <p><strong>Username: </strong><span id = "username"></span></p>
             <br>
-            <p><strong>Email: </strong><span id = "upp"></span></p>
+            <p><strong>Email: </strong><span id = "email"></span></p>
             <br>
-            <p><strong>First Name: </strong><span id = "upp"></span></p>
+            <p><strong>First Name: </strong><span id = "firstName"></span></p>
             <br>
-            <p><strong>Last Name: </strong><span id = "upp"></span></p>
+            <p><strong>Last Name: </strong><span id = "lastName"></span></p>
         </div>
 
         <h2>Change Password</h2>
@@ -25,6 +25,6 @@
                 <input type = "submit" value = "Change Password">
         </form>
 
-        
+
     </main>
 </body>

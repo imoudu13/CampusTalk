@@ -26,6 +26,7 @@ function getPosts() {
         while ($row = $result->fetch_assoc()) {
             // Convert the binary image data to base64 encoding
             $imageData = base64_encode($row['postImage']);
+            $postId = $row['postID'];
             // Find department from department id
             $deptId = $row['departmentID'];
             $sql1 = "SELECT * FROM department WHERE departmentID = " . $deptId;
@@ -42,7 +43,6 @@ function getPosts() {
             //check if the post has been liked by the user
             // Check if the user is logged in
             if (isset($_SESSION['userID'])) {
-                $postId = $row['postID'];
                 $userId = $_SESSION['userID'];
 
                 // Check if the like already exists in the database
@@ -56,6 +56,12 @@ function getPosts() {
                     $isLiked = true;
                 }
             }
+            //get the number of likes on the post
+            $stmt2 = $conn->prepare("SELECT * FROM LIKES WHERE postID = ?");
+            $stmt2->bind_param("i",$postId);
+            $stmt2->execute();
+            $result2 = $stmt2->get_result();
+            $numLikes = $result2->num_rows;
             // Construct the post object including image data and department name
             $post = [
                 'postID' => $row['postID'],
@@ -67,7 +73,8 @@ function getPosts() {
                 'courseID' => $row['courseID'],
                 'postImage' => $imageData, // Include the image data
                 'createdAt' => $row['createdAt'],
-                'isLiked' => $isLiked
+                'isLiked' => $isLiked,
+                'numLikes' => $numLikes
             ];
             $posts[] = $post;
 

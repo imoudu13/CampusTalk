@@ -34,6 +34,7 @@ function sendToPhp(){
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 try {
+                    console.log(xhr);
                     let response = JSON.parse(xhr.responseText);
                     if (response.error) {
                         // there is an error

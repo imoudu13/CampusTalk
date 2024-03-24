@@ -1,5 +1,5 @@
 <?php
-include("../includes/connection.php");
+include ("../includes/connection.php");
 
 // get the referrer info so that if it is set we can send the user back to the previous page upon completion of processing
 $referrer = isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
@@ -15,7 +15,7 @@ try{
         
         
          // Handle image upload separately
-         if (isset($_FILES['imageupload'])) {
+         if (isset($_FILES['imageupload']) && $_FILES['imageupload']['error'] === UPLOAD_ERR_OK) {
             $image = $_FILES['imageupload']['name'];
             // Process and move the uploaded file to desired location
             $image = file_get_contents($_FILES['imageupload']['tmp_name']);

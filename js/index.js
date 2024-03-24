@@ -95,7 +95,7 @@ function displayPostsOnLoad(department){
                         let postId = post.postID; // Assuming post.postID contains the ID
                         sessionStorage.setItem('postId', postId);
                         // Redirect to post.php
-                        window.location.href = 'post.php?postId=' + postId;
+                        window.location.href = 'post.php?postId=' + postId;                    
                     }
                 });
 

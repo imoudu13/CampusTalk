@@ -3,7 +3,11 @@ session_start();
 
 // Include login.php
 include ("../processing/login.php");
+// Check if the current page is index.php. If not that means someone is only user profile page or admin page
+// Thus we will hide the create post button and search bar
+$isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
 ?>
+
 <!--Bootstrap nav bar-->
 
 <head>
@@ -13,20 +17,19 @@ include ("../processing/login.php");
 </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color: #27374D !important;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">CampusTalk</a>
+        <a class="navbar-brand" href="../pages/index.php">CampusTalk</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <!--   later we will add a variable here that will cause index.php to load posts based on likes -->
+                    <a class="nav-link" href="../pages/index.php">Hot Topics</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hot Topics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Random</a>
+                    <!--   later we will add a variable here that will cause index.php to load posts randomly -->
+                    <a class="nav-link" href="../pages/index.php">Random</a>
                 </li>
             </ul>
             <div class="d-flex">
@@ -35,20 +38,25 @@ include ("../processing/login.php");
                 </form>
                 <?php if (isset ($_SESSION['username'])) { ?>
                     <!-- Dropdown for logged-in users -->
+                    <?php if($isIndexPage){ ?>
                     <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#createPostModal"
-                        id="createpost">Create Post</button>
+                            id="createpost">Create Post</button>
+                    <?php } ?>
                     <div class="dropdown">
                         <button class="btn btn-outline-light" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown">
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Profile Settings</a></li>
+                            <li><a class="dropdown-item" href="../pages/userprofilepage.php">Profile Settings</a></li>
                             <li><a class="dropdown-item" href="#" id="logout">Sign Out</a></li>
+                            <?php if ($_SESSION['isAdmin'] == 1) { ?>
+                                <li><a class="dropdown-item" href="../pages/admin_page.php">Admin Page</a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 <?php } else { ?>
-                    <!-- Login button for guests -->
+                    <!-- Login button for nnon logged-in users -->
                     <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
                         id="loginbutton">Login</button>
                 <?php } ?>

@@ -87,8 +87,9 @@ function displayPostsOnLoad(department){
 
                 userInputContainer.appendChild(commentInput);
                 userInputContainer.appendChild(likeButton);
-
-                imageContainer.appendChild(imageElement);
+                if(post.postImage){
+                    imageContainer.appendChild(imageElement);
+                }
                 postContainer.appendChild(titleElement);
                 postContainer.appendChild(contentElement);
                 postContainer.appendChild(imageContainer);

@@ -9,8 +9,68 @@ document.addEventListener('DOMContentLoaded', function() {
     //display all departments on load
     displayDepartmentsOnLoad();
 
+    if(document.getElementById('admin-search-form')) {
+        document.getElementById('admin-search-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Fetch the search query from the input field for adminsa
+            let searchQuery = document.getElementById('admin-search-bar').value;
+            let searchType = document.getElementById('userInformationAdminSelect').value;
+
+            handleAdminSearch(searchQuery, searchType);
+        });
+    }
+
 
 });
+function handleAdminSearch(query, type) {
+    // Display modal based on admin input
+    if (query === '') {
+        document.getElementById('admin-search-bar').style.setProperty('border-color', 'red', 'important');
+    } else {
+        document.getElementById('admin-search-bar').style.removeProperty('border-color');
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../processing/search_users.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                let responseData = JSON.parse(xhr.responseText);
+                displayUsersModal(responseData.users);
+            } else {
+                console.error('Error searching users:', xhr.statusText);
+            }
+        };
+
+        xhr.onerror = function() {
+            console.error('Error searching users:', xhr.statusText);
+        };
+
+        // Send the query and type as POST data
+        let postData = `searchTerm=${encodeURIComponent(query)}&searchType=${encodeURIComponent(type)}`;
+        xhr.send(postData);
+    }
+}
+
+function displayUsersModal(users) {
+    const modalBody = document.getElementById('userModalBody');
+
+    // Clear previous content
+    modalBody.innerHTML = '';
+
+    // Populate modal with fetched users
+    users.forEach(user => {
+        const userElement = document.createElement('p');
+        userElement.textContent = user.username; // Assuming each user object has a 'username' property
+        modalBody.appendChild(userElement);
+    });
+
+    // Show the modal
+    const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+    userModal.show();
+}
+
 function displayPostsOnLoad(department){
     let postsContainer = document.querySelector('.posts-container');
     postsContainer.innerHTML = '';
@@ -27,7 +87,7 @@ function displayPostsOnLoad(department){
                 // Create HTML elements for post title, content, and image
                 let link = document.createElement('div');
                 link.classList.add('post-link');
-
+                //event listener for each post to send the user to post.php to see comments and stuff
                 link.addEventListener('click', function(event) {
                     if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input') && !event.target.classList.contains('like-count')) {
                         let postId = post.postID; // Assuming post.postID contains the ID
@@ -165,7 +225,7 @@ function likePost(postId, likeCount) {
         .then(data => {
             if (data.error) {
                 // Alert the user to log in
-                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                let loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
                 loginModal.show();
             } else if (data.isLiked) {
                 // Highlight the like button

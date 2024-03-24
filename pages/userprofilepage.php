@@ -3,37 +3,66 @@
 // custom styles have to override bootstrap styles... can be difficult
     </head>
     <body>
-<?php require_once('../includes/nav.php'); ?>
-// need to get connection from db
 
-<?
-$user = ['username' => 'example_user',
-        'email' => 'user@example.com',
-        'first_name' => 'hadi',
-        'last_name' => 'razmi' ];
+<?php require_once('../includes/nav.php'); ?>
+
+<?php
+include 'connection.php';
+
+$conn = connectToDB();
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+?>
+//Check if user is logged in, otherwise send them to login/register page
+
+<?php
+if(!isset($_SESSION['username']) && !isset($_SESSION['userpassword'])){
+    header("Location: login.php"); //redirect to login page if not logged in
+    exit();
+}
+
+//Get user details from DB
+
+$username = $_SESSION['username'];
+$query = "SELECT * FROM users WHERE username = '$username' ";
+$result = mysqli_query($conn, $query);
+if(!$result){
+    die("Database query failed. No username found in database.");
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
+    $new_pass = $_POST['new_pass'];
+    $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
+    $update_password_query = "UPDATE users SET userpassword = '$hashed_pass' WHERE username = '$username' ";
+    $update_pass = mysqli_query($conn, $update_query);
+    if(!$update_result){
+        die("Password fail to be change!");
+    }
+
+    echo "You have updated your password!";
+}
 
 ?>
 
+<!-- html code for displaying user information --> 
 
-    <form action="update_profile.php" method = "post">
+<h2> User Profile </h2>
+<p>Username: <?php echo $user['username']; ?></p>
+<p>Email: <?php echo $user['email']; ?></p>
+<p>First Name: <?php echo $user['firstname']; ?></p>
+<p>Last Name: <?php echo $user['lastname']; ?></p>
 
-	<label for="username">User Name: </label>
-	<input type="text" id="username" name="username" value="<?php echo $user['username']; ?>" readonly><br>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" value="<?php echo $user['email']; ?>"><br>
-        <label for="first_name">First Name:</label>
-        <input type="text" name="first_name" value="<?php echo $user['first_name']; ?>"><br>
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="last_name" value="<?php echo $user['last_name']; ?>"><br>
+<h3> Change Password </h3>
+<form method = "post" action "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <label for="new_pass">Enter New Password: </label>
+    <input type = "password" name = "new_pass" > <br>
+    <input type = "submit" name = "passwordchange" value = "";
+</form>
 
-        <button type="submit">Update Information</button>
-    </form>
-
-    <form action="change_password.php" method="post">
-        <label for="password">New Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <button type="submit">Change Password</button>
-    </form>
 
 
 

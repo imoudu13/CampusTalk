@@ -1,4 +1,3 @@
-<head>
 <?php require_once('../includes/header.php'); ?>
 <link href="../css/index.css" rel="stylesheet">
 <script src="../js/index.js"></script>

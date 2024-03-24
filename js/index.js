@@ -68,14 +68,18 @@ function displayPostsOnLoad(department){
                 if(post.isLiked){
                     likeButton.classList.add('liked');
                 }
-                likeButton.addEventListener('click', function() {
-                    likePost(this.getAttribute('data-post-id'));
-                });
 
                 let likeCount = document.createElement('span');
                 likeCount.classList.add('badge', 'bg-secondary', 'like-count');
-                likeCount.textContent = "Number of likes";
+                likeCount.textContent = post.numLikes;
                 likeButton.appendChild(likeCount);
+
+                likeButton.addEventListener('click', function(event) {
+                        let clickedButton = event.currentTarget;
+                        let likeCount = clickedButton.querySelector('.like-count');
+                        likePost(clickedButton.getAttribute('data-post-id'), likeCount);
+                });
+
 
                 userInputContainer.appendChild(commentInput);
                 userInputContainer.appendChild(likeButton);
@@ -137,7 +141,7 @@ function displayDepartmentsOnLoad(){
     };
     xhr.send();
 }
-function likePost(postId) {
+function likePost(postId, likeCount) {
     fetch('../processing/like_post.php', {
         method: 'POST',
         headers: {
@@ -154,9 +158,15 @@ function likePost(postId) {
             } else if (data.isLiked) {
                 // Highlight the like button
                 highlightLikeButton(postId);
+                //increment like count
+                let currentLikes = parseInt(likeCount.textContent, 10);
+                likeCount.textContent = currentLikes + 1;
             } else {
                 // Unhighlight the like button
                 unhighlightLikeButton(postId);
+                //decrement like count
+                let currentLikes = parseInt(likeCount.textContent, 10);
+                likeCount.textContent = currentLikes + -1;
             }
         })
         .catch(error => {

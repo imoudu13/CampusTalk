@@ -1,4 +1,5 @@
 <?php require_once('../includes/connection.php');
+
 //checks if user is logged in
 session_start();
 if(!isset($_SESSION['username'])){
@@ -6,7 +7,6 @@ if(!isset($_SESSION['username'])){
     header("Location: login.php");
     exit();
 }
-
 function getUserProfile() {
     $conn = connectToDB();
 

@@ -37,17 +37,15 @@
                 </div>
             </div>
         </div>
-        <!--        <a href="Post.html"> </a>-->
         <div class="main-content">
             <button id="toggle-columns">Toggle Columns</button>
             <div class="posts-container">
-
                 <?php
                 if (isset ($_GET['postId'])) {
                     $postId = $_GET['postId'];
 
                     $query = "SELECT * FROM Posts WHERE postID = ?;";
-                    $commentsQuery = "SELECT * FROM Comments WHERE postID = ?;";
+                    $commentsQuery = "SELECT * FROM Comments JOIN Users ON Users.userID = Comments.UserID WHERE postID = ?;";
 
                     try {
                         $conn = connectToDB();
@@ -57,35 +55,29 @@
                             throw new Exception("Connection failed: " . $conn->connect_error);
                         }
 
-                        // Prepare and execute the query to fetch posts
+                        // prepare and execute the query to fetch posts
                         $stmt = $conn->prepare($query);
                         $stmt->bind_param("i", $postId);
                         $stmt->execute();
 
-                        // Fetch posts
+                        // fetch posts
                         $postsResult = $stmt->get_result();
                         $posts = $postsResult->fetch_all(MYSQLI_ASSOC);
 
-                        // Prepare and execute the query to fetch comments
+                        // prepare and execute the query to fetch comments
                         $stmt = $conn->prepare($commentsQuery);
                         $stmt->bind_param("i", $postId);
                         $stmt->execute();
 
-                        // Fetch comments
+                        // fetch comments
                         $commentsResult = $stmt->get_result();
                         $comments = $commentsResult->fetch_all(MYSQLI_ASSOC);
 
-                        // Close the database connection
+                        // close the database connection
                         $conn->close();
-
-                        // Combine posts and comments into a single array
-                        $data = array(
-                            'posts' => $posts,
-                            'comments' => $comments
-                        );
                         ?>
-                        <!-- Load display the image -->
-                        <div class="post-container" data-id="post.postID">
+                        <!-- load hte post info -->
+                        <div class="post-container" data-id="<?php echo $posts[0]['postID']?>">
                             <h2 class="post-title">
                                 <?php echo htmlspecialchars($posts[0]['title']); ?>
                             </h2>
@@ -97,25 +89,24 @@
                                 <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>">
                             </p>
                             <div class="user-input-post">
-                                <input class="form-control comment-input" type="text" placeholder="Write a comment...">
-                                <button class="btn btn-primary like-btn" data-post-id="post.postID">Like
-                                    <span class="badge bg-secondary like-count"></span>
-                                </button>
+                                <input class="form-control comment-input" id="commentBox" type="text" placeholder="Write a comment...">
+                                <button class="btn btn-primary like-btn" id="commentButton">Comment</button>
                             </div>
                         </div>
                         <?php
+                        $reversedComments = array_reverse($comments);
                         //load the comments
-                        foreach ($comments as $comment) {
-                            // Access individual comment data using $comment array
+                        foreach ($reversedComments as $comment) {
+                            // access individual comment data
                             $commentId = $comment['commentID'];
                             $commentContent = $comment['content'];
-                            $commentTitle = $comment['title'];
-                            // Output the comment data or perform any desired operations
+                            $username = $comment['username'];
+                            // output the comment data
                             ?>
                             <div class="comment-container" data-id="post.postID">
-                                <h2 class="comment-title">
-                                    <?php echo $commentTitle; ?>
-                                </h2>
+                                <h5 class="username">
+                                    <?php echo $username; ?>
+                                </h5>
                                 <p class="comment-text">
                                     <?php echo $commentContent; ?>
                                 </p>
@@ -123,7 +114,7 @@
                             <?php
                         }
                     } catch (Exception $e) {
-                        // Show error message
+                        // show error message
                         echo "Error: " . $e->getMessage();
                     }
                 }
@@ -132,5 +123,4 @@
             </div>
         </div>
     </main>
-
     <?php require_once ('../includes/footer.php'); ?>

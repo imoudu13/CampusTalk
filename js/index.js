@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
 });
+
 function handleAdminSearch(query, type) {
     // Display modal based on admin input
     if (query === '') {
@@ -71,6 +71,8 @@ function displayUsersModal(users) {
     userModal.show();
 }
 
+
+
 function displayPostsOnLoad(department){
     let postsContainer = document.querySelector('.posts-container');
     postsContainer.innerHTML = '';
@@ -87,23 +89,16 @@ function displayPostsOnLoad(department){
                 // Create HTML elements for post title, content, and image
                 let link = document.createElement('div');
                 link.classList.add('post-link');
-                //event listener for each post to send the user to post.php to see comments and stuff
+
                 link.addEventListener('click', function(event) {
                     if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input') && !event.target.classList.contains('like-count')) {
                         let postId = post.postID; // Assuming post.postID contains the ID
                         sessionStorage.setItem('postId', postId);
                         // Redirect to post.php
-                        window.location.href = 'post.php?postId=' + postId;                    
-                        window.location.href = 'post.php'; // Redirect to post.php
-                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input')) {
-                        // Store the data-id in session storage
-                        let postId = post.postID; // Assuming post.postID contains the ID
-                        sessionStorage.setItem('postId', postId);
-                        // Redirect to post.php
-                        window.location.href = 'post.php';
+                        window.location.href = 'post.php?postId=' + postId;
                     }
                 });
-                
+
 
                 let postContainer = document.createElement('div');
                 postContainer.classList.add('post-container');
@@ -146,9 +141,9 @@ function displayPostsOnLoad(department){
                 likeButton.appendChild(likeCount);
 
                 likeButton.addEventListener('click', function(event) {
-                        let clickedButton = event.currentTarget;
-                        let likeCount = clickedButton.querySelector('.like-count');
-                        likePost(clickedButton.getAttribute('data-post-id'), likeCount);
+                    let clickedButton = event.currentTarget;
+                    let likeCount = clickedButton.querySelector('.like-count');
+                    likePost(clickedButton.getAttribute('data-post-id'), likeCount);
                 });
 
 
@@ -225,7 +220,7 @@ function likePost(postId, likeCount) {
         .then(data => {
             if (data.error) {
                 // Alert the user to log in
-                let loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
                 loginModal.show();
             } else if (data.isLiked) {
                 // Highlight the like button

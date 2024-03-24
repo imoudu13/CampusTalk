@@ -41,6 +41,20 @@
         <div class="main-content">
             <button id="toggle-columns">Toggle Columns</button>
             <div class="posts-container">
+<<<<<<< HEAD
+                
+            </div>
+        </div>
+        <div class="right">
+            <p class="sidebar-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Pellentesque id nibh tortor id aliquet. In vitae turpis
+                massa sed elementum. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Aliquam malesuada
+                bibendum arcu vitae elementum curabitur vitae nunc. Hac habitasse platea dictumst vestibulum rhoncus
+                est. Sit amet risus nullam eget felis eget nunc lob</p>
+        </div>
+    </main>
+
+=======
                 <?php
                 if (isset ($_GET['postId'])) {
                     $postId = $_GET['postId'];
@@ -139,4 +153,5 @@
         </div>
     </main>
 
+>>>>>>> 74e632925415a7571e0555e674a17f71362e00b8
     <?php require_once ('../includes/footer.php'); ?>

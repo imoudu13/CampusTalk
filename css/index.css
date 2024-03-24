@@ -36,15 +36,15 @@ main {
     position: sticky;
     align-self: flex-start;
     top: 70px;
-    background-color: grey;
 }
 .right{
-    width: 125px;
+    width: 175px;
 }
 .left{
     max-height: calc(100vh - 56px);
     overflow-y: auto;
     width: 175px;
+    border-right: 1px solid;
 }
 .post-container p img{
     max-width: 100%;

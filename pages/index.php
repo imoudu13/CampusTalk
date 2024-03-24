@@ -46,9 +46,30 @@
     <!-- display the admin bar if admin    -->
     <?php if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) { ?>
         <div class="right">
-            <p class = "sidebar-content admin-header">Admin Controls</p>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Admin Controls</h5>
+                </div>
+                <div class="card-body">
+                    <form action="javascript:void(0);" method="POST" id="admin-search-form" class="d-flex flex-column">
+                        <div class="mb-3">
+                            <label for="userInformationAdminSelect" class="form-label" id="departmentLabel">Search For User By</label>
+                            <select class="form-select" id="userInformationAdminSelect" name="userInformationAdmin">
+                                <option value="0">Username</option>
+                                <option value="1">Email</option>
+                                <option value="2">Post</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="admin-search-bar" type="search" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                </div>
+            </div>
         </div>
     <?php } ?>
+
 </main>
 
 <?php require_once('../includes/footer.php'); ?>

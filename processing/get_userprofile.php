@@ -1,6 +1,4 @@
 <?php require_once('../includes/connection.php');
-
-<<<<<<< HEAD
 //checks if user is logged in
 session_start();
 if(!isset($_SESSION['username'])){
@@ -9,8 +7,6 @@ if(!isset($_SESSION['username'])){
     exit();
 }
 
-=======
->>>>>>> 74e632925415a7571e0555e674a17f71362e00b8
 function getUserProfile() {
     $conn = connectToDB();
 

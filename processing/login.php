@@ -52,9 +52,7 @@ try {
         if ($numberOfRows == 0) {
             echo json_encode(array("error" => "no result", "redirect" => "$referrer"));
         } else {
-            $userID;
-            $userpassword;
-            $isAdmin;
+
 
             $stmt->bind_result($userID, $userpassword, $isAdmin);
 

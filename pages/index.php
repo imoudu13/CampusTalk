@@ -43,9 +43,33 @@
             <!--Filled by get_posts and index.js -->
         </div>
     </div>
-    <div class="right">
-        <p class = "sidebar-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque id nibh tortor id aliquet. In vitae turpis massa sed elementum. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Hac habitasse platea dictumst vestibulum rhoncus est. Sit amet risus nullam eget felis eget nunc lob</p>
-    </div>
+    <!-- display the admin bar if admin    -->
+    <?php if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) { ?>
+        <div class="right">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Admin Controls</h5>
+                </div>
+                <div class="card-body">
+                    <form action="javascript:void(0);" method="POST" id="admin-search-form" class="d-flex flex-column">
+                        <div class="mb-3">
+                            <label for="userInformationAdminSelect" class="form-label" id="departmentLabel">Search For User By</label>
+                            <select class="form-select" id="userInformationAdminSelect" name="userInformationAdmin">
+                                <option value="0">Username</option>
+                                <option value="1">Email</option>
+                                <option value="2">Post</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="admin-search-bar" type="search" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
 </main>
 
 <?php require_once('../includes/footer.php'); ?>

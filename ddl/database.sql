@@ -20,7 +20,8 @@ CREATE TABLE Users (
     userpassword VARCHAR(255) NOT NULL,
     profileimage LONGBLOB, -- this stores the image in our system
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    isAdmin BOOLEAN DEFAULT FALSE
+    isAdmin BOOLEAN DEFAULT FALSE,
+    isEnabled BOOLEAN DEFAULT TRUE
 );
 
 -- Table for storing groups (e.g., majors and minors)

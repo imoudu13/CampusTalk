@@ -1,6 +1,6 @@
 <?php
 require_once('../includes/connection.php');
-
+session_start();
 function getPosts() {
     $conn = connectToDB();
     // Check if 'department' is set in the GET request
@@ -26,6 +26,7 @@ function getPosts() {
         while ($row = $result->fetch_assoc()) {
             // Convert the binary image data to base64 encoding
             $imageData = base64_encode($row['postImage']);
+            $postId = $row['postID'];
             // Find department from department id
             $deptId = $row['departmentID'];
             $sql1 = "SELECT * FROM department WHERE departmentID = " . $deptId;
@@ -36,7 +37,31 @@ function getPosts() {
                 $deptRow = $result1->fetch_assoc();
                 $departmentName = $deptRow['name'];
             }
+            //See if user liked post
 
+            $isLiked = false;
+            //check if the post has been liked by the user
+            // Check if the user is logged in
+            if (isset($_SESSION['userID'])) {
+                $userId = $_SESSION['userID'];
+
+                // Check if the like already exists in the database
+                $stmt1 = $conn->prepare("SELECT * FROM likes WHERE userId = ? AND postId = ?");
+                $stmt1->bind_param("ii", $userId, $postId);
+                $stmt1->execute();
+                $result1 = $stmt1->get_result();
+
+                if ($result1->num_rows > 0) {
+                    // User has already liked the post
+                    $isLiked = true;
+                }
+            }
+            //get the number of likes on the post
+            $stmt2 = $conn->prepare("SELECT * FROM LIKES WHERE postID = ?");
+            $stmt2->bind_param("i",$postId);
+            $stmt2->execute();
+            $result2 = $stmt2->get_result();
+            $numLikes = $result2->num_rows;
             // Construct the post object including image data and department name
             $post = [
                 'postID' => $row['postID'],
@@ -47,9 +72,14 @@ function getPosts() {
                 'departmentName' => $departmentName, // Include the department name
                 'courseID' => $row['courseID'],
                 'postImage' => $imageData, // Include the image data
-                'createdAt' => $row['createdAt']
+                'createdAt' => $row['createdAt'],
+                'isLiked' => $isLiked,
+                'numLikes' => $numLikes
             ];
             $posts[] = $post;
+
+            //check if the post has been liked by the user
+
         }
     }
 

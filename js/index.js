@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     displayPostsOnLoad(initialPostDepartment);
     //display all departments on load
     displayDepartmentsOnLoad();
+
+
 });
 function displayPostsOnLoad(department){
     let postsContainer = document.querySelector('.posts-container');
@@ -27,12 +29,11 @@ function displayPostsOnLoad(department){
                 link.classList.add('post-link');
 
                 link.addEventListener('click', function(event) {
-                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input')) {
-                        // Store the data-id in session storage
+                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input') && !event.target.classList.contains('like-count')) {
                         let postId = post.postID; // Assuming post.postID contains the ID
                         sessionStorage.setItem('postId', postId);
                         // Redirect to post.php
-                        window.location.href = 'post.php';
+                        window.location.href = 'post.php?postId=' + postId;                    
                     }
                 });
                 
@@ -66,12 +67,23 @@ function displayPostsOnLoad(department){
                 let likeButton = document.createElement('button');
                 likeButton.classList.add('btn', 'btn-primary', 'like-btn');
                 likeButton.setAttribute('data-post-id', post.postID);
-                likeButton.textContent = 'Like ';
+                likeButton.textContent = 'Like';
+                //if the post has alreayd been liked we display that
+                if(post.isLiked){
+                    likeButton.classList.add('liked');
+                }
 
                 let likeCount = document.createElement('span');
                 likeCount.classList.add('badge', 'bg-secondary', 'like-count');
-                likeCount.textContent = "Number of likes";
+                likeCount.textContent = post.numLikes;
                 likeButton.appendChild(likeCount);
+
+                likeButton.addEventListener('click', function(event) {
+                        let clickedButton = event.currentTarget;
+                        let likeCount = clickedButton.querySelector('.like-count');
+                        likePost(clickedButton.getAttribute('data-post-id'), likeCount);
+                });
+
 
                 userInputContainer.appendChild(commentInput);
                 userInputContainer.appendChild(likeButton);
@@ -132,4 +144,48 @@ function displayDepartmentsOnLoad(){
         console.error('Error fetching posts:', xhr.statusText);
     };
     xhr.send();
+}
+function likePost(postId, likeCount) {
+    fetch('../processing/like_post.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `postId=${postId}`,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                // Alert the user to log in
+                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+            } else if (data.isLiked) {
+                // Highlight the like button
+                highlightLikeButton(postId);
+                //increment like count
+                let currentLikes = parseInt(likeCount.textContent, 10);
+                likeCount.textContent = currentLikes + 1;
+            } else {
+                // Unhighlight the like button
+                unhighlightLikeButton(postId);
+                //decrement like count
+                let currentLikes = parseInt(likeCount.textContent, 10);
+                likeCount.textContent = currentLikes + -1;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while liking the post. Please try again.');
+        });
+}
+
+
+function highlightLikeButton(postId) {
+    const likeButton = document.querySelector(`.like-btn[data-post-id="${postId}"]`);
+    likeButton.classList.add('liked');
+}
+
+function unhighlightLikeButton(postId) {
+    const likeButton = document.querySelector(`.like-btn[data-post-id="${postId}"]`);
+    likeButton.classList.remove('liked');
 }

@@ -94,7 +94,12 @@ main {
 #toggle-columns{
     display: none !important;
 }
-
+.liked{
+    background-color: green;
+}
+.liked:hover{
+    background-color: green;
+}
 @media only screen and (max-width: 1200px){
     .left{
         display: none;

@@ -48,7 +48,7 @@ include ("../processing/login.php");
                         </ul>
                     </div>
                 <?php } else { ?>
-                    <!-- Login button for guests -->
+                    <!-- Login button for nnon logged-in users -->
                     <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
                         id="loginbutton">Login</button>
                 <?php } ?>

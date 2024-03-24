@@ -49,7 +49,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
 ?>
 
 <!-- html code for displaying user information --> 
-
+<html>
+<body>
 <h2> User Profile </h2>
 <p>Username: <?php echo $user['username']; ?></p>
 <p>Email: <?php echo $user['email']; ?></p>
@@ -62,8 +63,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
     <input type = "password" name = "new_pass" > <br>
     <input type = "submit" name = "passwordchange" value = "";
 </form>
-
-
+</body>
+</html>
 
 
 

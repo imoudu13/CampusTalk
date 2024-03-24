@@ -14,25 +14,25 @@ try {
     $password = $_POST['password'];
 
 
-    // Create connection
+    // create connection
     $conn = connectToDB();
 
-    // Check for connection error
+    // check for connection error
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepare the insert statement with placeholders
+    // prepare the insert statement with placeholders
     $sql = "INSERT INTO Users (username, firstname, lastname, email, userpassword) VALUES (?, ?, ?, ?, ?)";
 
-    // Create a prepared statement
+    // create prepared statement
     $stmt = $conn->prepare($sql);
 
 
-    // Bind parameters
+    // bind parameters
     $stmt->bind_param("sssss", $username, $firstname, $lastname, $email, $password);
 
-    // Execute the statement
+    // execute
     if (!$stmt->execute()) {
         if ($conn->errno == 1062) { // MySQL error code for duplicate entry
             echo json_encode(array("error" => "username_not_unique", "redirect" => "index.php"));
@@ -40,7 +40,7 @@ try {
             throw new Exception("Error in executing statement: " . $stmt->error);
         }
     } else {
-        // Successful insertion, log user in then send success message
+        // successful insertion, log user in then send success message
         $sql = "SELECT userID FROM Users WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -53,10 +53,10 @@ try {
         echo json_encode(array("success" => true, "redirect" => "index.php"));
     }
 
-    // Close the statement and connection
+    // close resources
     $stmt->close();
     $conn->close();
 } catch (Exception $e) {
-    // Handle any exceptions here
+    // return excveptions, good for debugging
     echo json_encode(array("error" => "An error occurred", "redirect" => "index.php"));
 }

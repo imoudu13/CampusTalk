@@ -30,9 +30,13 @@ function displayPostsOnLoad(department){
 
                 link.addEventListener('click', function(event) {
                     if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input') && !event.target.classList.contains('like-count')) {
-                        window.location.href = 'post.php'; // Redirect to post.php
+                        let postId = post.postID; // Assuming post.postID contains the ID
+                        sessionStorage.setItem('postId', postId);
+                        // Redirect to post.php
+                        window.location.href = 'post.php?postId=' + postId;                    
                     }
                 });
+                
 
                 let postContainer = document.createElement('div');
                 postContainer.classList.add('post-container');

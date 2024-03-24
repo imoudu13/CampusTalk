@@ -48,6 +48,7 @@ main {
 }
 .post-container p img{
     max-width: 100%;
+
 }
 .post-container{
     background-color: #8598A6;
@@ -63,7 +64,7 @@ main {
 .post-container:hover{
     background-color: white;
 }
-.img-container{
+.image-container{
     background-color: rgb(0 0 0 / 50%);
     display: flex;
     justify-content: center;

@@ -36,7 +36,7 @@ include ("../processing/login.php");
                 <?php if (isset ($_SESSION['username'])) { ?>
                     <!-- Dropdown for logged-in users -->
                     <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#createPostModal"
-                        id="createpost">Create a Post</button>
+                        id="createpost">Create Post</button>
                     <div class="dropdown">
                         <button class="btn btn-outline-light" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown">

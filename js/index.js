@@ -64,6 +64,7 @@ function displayPostsOnLoad(department){
                 likeButton.classList.add('btn', 'btn-primary', 'like-btn');
                 likeButton.setAttribute('data-post-id', post.postID);
                 likeButton.textContent = 'Like';
+                //if the post has alreayd been liked we display that
                 if(post.isLiked){
                     likeButton.classList.add('liked');
                 }

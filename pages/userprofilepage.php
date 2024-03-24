@@ -1,6 +1,7 @@
 <head>
 <?php require_once('../includes/header.php'); ?>
 <!-- link to style sheet insert here later -->
+<link rel="stylesheet" href="../css/userprofilepage.css">
 <script src="../js/userprofilepage.js"></script> 
 <head>
 

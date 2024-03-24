@@ -59,11 +59,9 @@ function sendToPhp() {
 }
 //this function gets the department ids from the department column, then puts those ids in the drop down menu
 function getDepartmentIds() {
-    console.log("we here");
     let deptContainer = document.getElementById("department-container");
     
     let pTags = deptContainer.getElementsByTagName("p");
-    console.log(pTags);
     
     for(let i = 0; i < pTags.length; i++){
         let aTag = pTags[i].firstChild;

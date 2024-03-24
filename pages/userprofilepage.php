@@ -20,10 +20,9 @@ if ($conn->connect_error) {
 //Check if user is logged in, otherwise send them to login/register page
 
 <?php
-//if(!isset($_SESSION['username']) && !isset($_SESSION['userpassword'])){
-//    header("Location: login.php"); //redirect to login page if not logged in
-//   exit(); }
-
+if(!isset($_SESSION['username']) && !isset($_SESSION['userpassword'])){
+    header("Location: signup.php"); //redirect to sign up page 
+   exit(); }
 
 //Get user details from DB
 
@@ -58,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
 <p>Last Name: <?php echo $user['lastname']; ?></p>
 
 <h3> Change Password </h3>
-<form method = "post" action "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method = "post" action "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
     <label for="new_pass">Enter New Password: </label>
     <input type = "password" name = "new_pass" > <br>
     <input type = "submit" name = "passwordchange" value = "";

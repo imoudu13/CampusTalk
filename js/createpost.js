@@ -1,19 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('submit-post').addEventListener('click', verifyPost);
-    getDepartmentIds();
 });
 function verifyPost() {
     resetLabels(false);
-
+    let isGoodPost = true;
     let postTitle = document.getElementById('post-title').value;
-
-
+    let departmentSelect = document.getElementById('departmentSelect');
+    let selectedValue = departmentSelect.value;
     if (postTitle === "") {
         //force them to enter a title
+        isGoodPost = false;
         resetLabels(true);
-    } else {
+    }if(selectedValue === '0'){
+        isGoodPost = false
+        document.getElementById('departmentLabel').style.setProperty('color', 'red', 'important');
+    }
+    else {
         //send to the php file for insertion
-        sendToPhp();
+        if (isGoodPost) sendToPhp();
     }
 }
 
@@ -57,20 +61,4 @@ function sendToPhp() {
     };
     xhr.send(formData);
 }
-//this function gets the department ids from the department column, then puts those ids in the drop down menu
-function getDepartmentIds() {
-    let deptContainer = document.getElementById("department-container");
-    
-    let pTags = deptContainer.getElementsByTagName("p");
-    
-    for(let i = 0; i < pTags.length; i++){
-        let aTag = pTags[i].firstChild;
-        console.log("inside the loop");
-        // Do something with each <p> element, for example:
-        console.log(aTag.textContent);
-    }
-}
-//add the departments for this user to the dropdown on load
-function displayDepartmentsForPost() {
 
-}

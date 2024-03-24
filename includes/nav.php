@@ -3,6 +3,8 @@ session_start();
 
 // Include login.php
 include ("../processing/login.php");
+// Include connection.php so we can load departments into create post modal
+require_once('../includes/connection.php');
 // Check if the current page is index.php. If not that means someone is only user profile page or admin page
 // Thus we will hide the create post button and search bar
 $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
@@ -121,11 +123,28 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                         <input type="file" class="form-control" id="postImage" accept="image/*" name="imageupload">
                     </div>
                     <div class="mb-3">
-                        <label for="departmentSelect" class="form-label">Select a Department</label>
+                        <label for="departmentSelect" class="form-label" id="departmentLabel">Select a Department</label>
                         <select class="form-select" id="departmentSelect" name="department">
-                            <option value="1" selected>Computer Science</option>
-                            <option value="2">Data Science</option>
-                            <option value="3">Mathematics</option>
+                            <option value="0">Select a Department</option>
+                            <?php
+                            $conn = connectToDB();
+                            // Check connection
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+                            $sql = "SELECT * FROM Department";
+                            $result = $conn->query($sql);
+                            $departments = [];
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $departmentId = $row['departmentID'];
+                                    $departmentName = $row['name'];
+                                    echo '<option value="' . $departmentId . '">' . $departmentName . '</option>';
+                                }
+                            }
+                            close_db($conn);
+                            ?>
                         </select>
                     </div>
 

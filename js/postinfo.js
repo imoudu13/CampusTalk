@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setInterval(refreshPage, 10000);
 
-    let likeButton = document.getElementById("likeButton");
-    let postId = likeButton.getAttribute('data-post-id');
-    let likeCount 
+    let postId = sessionStorage.getItem('postId');
     // likeButton.addEventListener("click", likePost(postId, ));
     document.getElementById('commentButton').addEventListener('click', function () {
         let content = document.getElementById('commentBox').value;
@@ -14,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
             postId: postId,
             content: content
         };
-
         // Convert the data object to JSON
         let jsonData = JSON.stringify(requestData);
 

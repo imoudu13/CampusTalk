@@ -1,71 +1,98 @@
+<head>
 <?php require_once('../includes/header.php'); ?>
-// if you want to add custom styles or js link it here
-// custom styles have to override bootstrap styles... can be difficult
+<<<<<<< HEAD
+<script src="../js/userprofilepage.js"></script>
+<link rel = "stylesheet" href= "../css/userprofilepage.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
 
-    </head>
-    <body>
-
-<?php require_once('../includes/nav.php'); ?>
-
-<?php
-include('../includes/connection.php');
-
-$conn = connectToDB();
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-?>
-//Check if user is logged in, otherwise send them to login/register page
-
-<?php
-if(!isset($_SESSION['username']) && !isset($_SESSION['userpassword'])){
-    header("Location: signup.php"); //redirect to sign up page 
-   exit(); }
-
-//Get user details from DB
-
-$username = $_SESSION['username'];
-$query = "SELECT * FROM users WHERE username = '$username' ";
-$result = mysqli_query($conn, $query);
-if(!$result){
-    die("Database query failed. No username found in database.");
-}
-
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
-    $new_pass = $_POST['new_pass'];
-    $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
-    $update_password_query = "UPDATE users SET userpassword = '$hashed_pass' WHERE username = '$username' ";
-    $update_pass = mysqli_query($conn, $update_query);
-    if(!$update_result){
-        die("Password fail to be change!");
-    }
-
-    echo "You have updated your password!";
-}
-
-?>
-
-<!-- html code for displaying user information --> 
-<html>
 <body>
-<h2> User Profile </h2>
-<p>Username: <?php echo $user['username']; ?></p>
-<p>Email: <?php echo $user['email']; ?></p>
-<p>First Name: <?php echo $user['firstname']; ?></p>
-<p>Last Name: <?php echo $user['lastname']; ?></p>
+    <!-- include the nav.php -->
+    <?php require_once('../includes/nav.php');?>
 
-<h3> Change Password </h3>
-<form method = "post" action "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-    <label for="new_pass">Enter New Password: </label>
-    <input type = "password" name = "new_pass" > <br>
-    <input type = "submit" name = "passwordchange" value = "";
-</form>
+    <main>
+<div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src=" " alt="Gotta put a profile picture here"/>
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        <p><strong>User name goes here<span id="username"></span></p>
+                                    </h5>
+                                    <h6>
+                                        <p><strong>User since <span id="createdAt"></span></p>
+                                    </h6>
+                                    <p class="proile-rating">Your Profile Information </span></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <p>Your Communities</p>
+                            <a href="">Data Science</a><br/>
+                            <a href="">Management</a><br/>
+                            <a href="">UBCO Heat</a>
+                            <p>Posts</p>
+                            <a href="">Thoughts on COSC360?</a><br/>
+                            <a href="">Freelance Tutor in Kelowna</a><br/>
+                            <a href="">How to get good sleep as a student?</a><br/>
+
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Username </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!--DISPLAY USERNAME HERE -->
+                                            <p><strong><span id="username"></span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!--DISPLAY FIRST NAME HERE -->
+                                            <p><strong><span id="firstName"></span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                 <!--DISPLAY FIRST NAME HERE -->
+                                            <p><strong><span id="email"></span></p>
+                                            </div>
+                                        </div>
+                                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+        </div>
+
+</main>
 </body>
-</html>
-
-
-
-<?php require_once('../includes/footer.php'); ?>

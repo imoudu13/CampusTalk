@@ -29,7 +29,7 @@ function displayPostsOnLoad(department){
                 link.classList.add('post-link');
 
                 link.addEventListener('click', function(event) {
-                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input')) {
+                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input') && !event.target.classList.contains('like-count')) {
                         window.location.href = 'post.php'; // Redirect to post.php
                     }
                 });

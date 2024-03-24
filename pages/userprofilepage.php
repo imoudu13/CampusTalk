@@ -1,6 +1,5 @@
 <head>
 <?php require_once('../includes/header.php'); ?>
-<<<<<<< HEAD
 <script src="../js/userprofilepage.js"></script>
 <link rel = "stylesheet" href= "../css/userprofilepage.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>

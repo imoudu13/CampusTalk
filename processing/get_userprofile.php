@@ -1,5 +1,13 @@
 <?php require_once('../includes/connection.php');
 
+//checks if user is logged in
+session_start();
+if(!isset($_SESSION['user_id'])){
+    //redirect the user to login page since user has not logged in
+    header("Location: login.php");
+    exit();
+}
+
 function getUserProfile() {
     $conn = connectToDB();
 

@@ -7,7 +7,7 @@
 <?php require_once('../includes/nav.php'); ?>
 
 <?php
-include 'connection.php';
+include('../includes/connection.php');
 
 $conn = connectToDB();
 

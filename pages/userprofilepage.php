@@ -7,7 +7,7 @@
 <?php require_once('../includes/nav.php'); ?>
 
 <?php
-include 'connection.php';
+include('../includes/connection.php');
 
 $conn = connectToDB();
 
@@ -21,9 +21,8 @@ if ($conn->connect_error) {
 
 <?php
 if(!isset($_SESSION['username']) && !isset($_SESSION['userpassword'])){
-    header("Location: login.php"); //redirect to login page if not logged in
-    exit();
-}
+    header("Location: signup.php"); //redirect to sign up page 
+   exit(); }
 
 //Get user details from DB
 
@@ -49,7 +48,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
 ?>
 
 <!-- html code for displaying user information --> 
-
+<html>
+<body>
 <h2> User Profile </h2>
 <p>Username: <?php echo $user['username']; ?></p>
 <p>Email: <?php echo $user['email']; ?></p>
@@ -57,13 +57,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['passwordchange'])){
 <p>Last Name: <?php echo $user['lastname']; ?></p>
 
 <h3> Change Password </h3>
-<form method = "post" action "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method = "post" action "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
     <label for="new_pass">Enter New Password: </label>
     <input type = "password" name = "new_pass" > <br>
     <input type = "submit" name = "passwordchange" value = "";
 </form>
-
-
+</body>
+</html>
 
 
 

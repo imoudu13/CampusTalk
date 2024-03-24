@@ -61,6 +61,9 @@ main {
 .post-container p{
     color: black;
 }
+.post-text, .image-container{
+    margin-bottom: 1em;
+}
 .post-container:hover{
     background-color: white;
 }

@@ -1,6 +1,7 @@
 <?php require_once('../includes/header.php'); ?>
 // if you want to add custom styles or js link it here
 // custom styles have to override bootstrap styles... can be difficult
+
     </head>
     <body>
 

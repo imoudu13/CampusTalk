@@ -112,7 +112,7 @@ function displayDepartmentsOnLoad(){
             departments.forEach(function(department) {
                 // Create HTML elements for post title, content, and image
                 let departmentP = document.createElement('p');
-                departmentP.classList.add('sidebar-item', 'left-item');
+                departmentP.classList.add('sidebar-item', 'left-item', 'department');
 
                 let link = document.createElement('a');
                 link.setAttribute('data-id', department.departmentID);

@@ -115,9 +115,9 @@ include ("../processing/login.php");
                     <div class="mb-3">
                         <label for="departmentSelect" class="form-label">Select a Department</label>
                         <select class="form-select" id="departmentSelect" name="department">
-                            <option value="1" selected>Department 1</option>
-                            <option value="2">Department 2</option>
-                            <option value="3">Department 3</option>
+                            <option value="1" selected>Computer Science</option>
+                            <option value="2">Data Science</option>
+                            <option value="3">Mathematics</option>
                         </select>
                     </div>
 

@@ -43,9 +43,12 @@
             <!--Filled by get_posts and index.js -->
         </div>
     </div>
-    <div class="right">
-        <p class = "sidebar-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque id nibh tortor id aliquet. In vitae turpis massa sed elementum. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Hac habitasse platea dictumst vestibulum rhoncus est. Sit amet risus nullam eget felis eget nunc lob</p>
-    </div>
+    <!-- display the admin bar if admin    -->
+    <?php if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) { ?>
+        <div class="right">
+            <p class = "sidebar-content admin-header">Admin Controls</p>
+        </div>
+    <?php } ?>
 </main>
 
 <?php require_once('../includes/footer.php'); ?>

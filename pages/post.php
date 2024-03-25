@@ -1,5 +1,6 @@
 <?php require_once ('../includes/header.php'); ?>
 <link href="../css/index.css" rel="stylesheet">
+<link href="../css/postpage.css" rel="stylesheet">
 <script src="../js/postinfo.js"></script>
 </head>
 
@@ -80,8 +81,8 @@
                         <div class="post-container" data-id="<?php echo $posts[0]['postID']?>">
                             <h2 class="post-title">
                                 <?php echo htmlspecialchars($posts[0]['title']); ?>
+                                <?php if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) { echo "<div><button class=\"btn btn-primary edit-btn\" id=\"editButton\">Edit</button></div>"; }?>
                             </h2>
-
                             <p class="post-text">
                                 <?php echo htmlspecialchars($posts[0]['content']); ?>
                             </p>
@@ -120,7 +121,14 @@
                 }
 
                 ?>
-            </div>
+          </div>
+        </div>
+        <div class="right">
+            <p class="sidebar-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Pellentesque id nibh tortor id aliquet. In vitae turpis
+                massa sed elementum. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Aliquam malesuada
+                bibendum arcu vitae elementum curabitur vitae nunc. Hac habitasse platea dictumst vestibulum rhoncus
+                est. Sit amet risus nullam eget felis eget nunc lob</p>
         </div>
     </main>
     <?php require_once ('../includes/footer.php'); ?>

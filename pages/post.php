@@ -1,4 +1,5 @@
 <?php require_once ('../includes/header.php'); ?>
+<head>
 <link href="../css/index.css" rel="stylesheet">
 <link href="../css/postpage.css" rel="stylesheet">
 <script src="../js/postinfo.js"></script>
@@ -78,19 +79,22 @@
                         $conn->close();
                         ?>
                         <!-- load hte post info -->
-                        <div class="post-container" data-id="<?php echo $posts[0]['postID']?>">
+                        <div class="post-container" data-id="<?php echo $posts[0]['postID'] ?>">
                             <h2 class="post-title">
                                 <?php echo htmlspecialchars($posts[0]['title']); ?>
-                                <?php if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) { echo "<div><button class=\"btn btn-primary edit-btn\" id=\"editButton\">Edit</button></div>"; }?>
+                                <?php if (isset ($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) {
+                                    echo "<div><button class=\"btn btn-primary edit-btn\" id=\"editButton\" data-bs-toggle=\"modal\" data-bs-target=\"#editPost\">Edit</button></div>";  
+                                } ?>
                             </h2>
                             <p class="post-text">
-                                <?php echo htmlspecialchars($posts[0]['content']); ?>
+                                <?php echo htmlspecialchars($posts[0]['content']); ?> <?php echo htmlspecialchars($posts[0]['title']); ?>
                             </p>
                             <p class="image-container post-img">
-                                <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>">
+                                <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>"> 
                             </p>
                             <div class="user-input-post">
-                                <input class="form-control comment-input" id="commentBox" type="text" placeholder="Write a comment...">
+                                <input class="form-control comment-input" id="commentBox" type="text"
+                                    placeholder="Write a comment...">
                                 <button class="btn btn-primary like-btn" id="commentButton">Comment</button>
                             </div>
                         </div>
@@ -121,14 +125,66 @@
                 }
 
                 ?>
-          </div>
+            </div>
         </div>
-        <div class="right">
-            <p class="sidebar-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Pellentesque id nibh tortor id aliquet. In vitae turpis
-                massa sed elementum. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Aliquam malesuada
-                bibendum arcu vitae elementum curabitur vitae nunc. Hac habitasse platea dictumst vestibulum rhoncus
-                est. Sit amet risus nullam eget felis eget nunc lob</p>
+        <!-- display the admin bar if admin    -->
+        <?php if (isset ($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) { ?>
+            <div class="right">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Admin Controls</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="javascript:void(0);" method="POST" id="admin-search-form" class="d-flex flex-column">
+                            <div class="mb-3">
+                                <label for="userInformationAdminSelect" class="form-label" id="departmentLabel">Search For
+                                    User By</label>
+                                <select class="form-select" id="userInformationAdminSelect" name="userInformationAdmin">
+                                    <option value="0">Username</option>
+                                    <option value="1">Email</option>
+                                    <option value="2">Post</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" id="admin-search-bar" type="search" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <!-- this will be the modal that allows an admin to edit the post -->
+        <div class="modal fade" id="editPost" tabindex="-1" aria-labelledby="editPostModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="javascript:void(0);" method="POST" id="edit-post-form">
+                            <div class="mb-3">
+                                <label for="edit-post-title" class="form-label" id="edit-title-label">Title</label>  
+                                <input type="text" class="form-control" id="edit-post-title" name="title" value="<?php echo htmlspecialchars($posts[0]['title']); ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="postContent" class="form-label" id="content-label">Content</label>
+                                <textarea class="form-control" id="postContent" rows="3" name="content"><?php echo htmlspecialchars($posts[0]['content']);?></textarea>
+                            </div>
+                            <input type="hidden" name="hiddenpostid" value="<?php echo $posts[0]['postID'] ?>">
+                        </form>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="edit-post-button">Save Post</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <?php require_once ('../includes/footer.php'); ?>

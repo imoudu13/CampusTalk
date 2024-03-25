@@ -2,7 +2,8 @@
 include ("../includes/connection.php");
 
 // This is the function that logs a user in, it creates a session, give it a timeout and stores the users information in the session so we can use it in other places
-function login($username, $userID, $isAdmin) {
+function login($username, $userID, $isAdmin)
+{
     // Start or resume the session if it's not already started
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -27,7 +28,7 @@ $referrer = isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index
 
 // start connecting to the db
 try {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset ($_POST['username']) && isset ($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -58,16 +59,17 @@ try {
 
             $stmt->fetch();
 
-            if($userpassword == $password){
+            if ($userpassword == $password) {
                 login($username, $userID, $isAdmin);
+                $stmt->close();
+                $conn->close();
                 echo json_encode(array("success" => "welcome", "redirect" => "$referrer"));
             } else {
+                $stmt->close();
+                $conn->close();
                 echo json_encode(array("error" => "incorrect password", "password" => "$userpassword", "redirect" => "$referrer"));
             }
         }
-
-        $stmt->close();
-        $conn->close();
     } else {
         echo json_encode(array("error" => "missing data", "redirect" => "$referrer"));
     }

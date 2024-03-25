@@ -1,10 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
     displayDepartmentsOnLoad();
 
-    setInterval(refreshPage, 10000);
+    
+    // setInterval(refreshPage, 10000);
+    document.getElementById('edit-post-button').addEventListener('click', function () {
+        resetLabelsForEdit(false);
+        let postTitle = document.getElementById('edit-post-title').value;
 
+        if (postTitle === '') {
+            //force user to enter a title
+            resetLabelsForEdit(true);
+        } else {
+            sendToEditPost();
+        }
+    });
     let postId = sessionStorage.getItem('postId');
-    // likeButton.addEventListener("click", likePost(postId, ));
+
+
     document.getElementById('commentButton').addEventListener('click', function () {
         let content = document.getElementById('commentBox').value;
 
@@ -84,4 +96,42 @@ function displayDepartmentsOnLoad() {
 // Function to refresh the page
 function refreshPage() {
     location.reload(); // Reload the current page
+}
+//if the title is blank it will change the label to red and display a message otherewise the label will be Title and black
+function resetLabelsForEdit(error) {
+    document.getElementById('edit-title-label').textContent = error ? "You must enter a title" : "Title";
+    document.getElementById('edit-title-label').style.color = error ? "red" : "black";
+}
+//this function sends the information edited information to php for processing
+function sendToEditPost() {
+    let formData = new FormData(document.getElementById("edit-post-form"));
+    console.log("here");
+    // Send the form data to the login processing file
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../processing/editpost.php', true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                try {
+                    let response = JSON.parse(xhr.responseText);
+                    if (response.error) {
+                        // there is an error
+                        console.log(xhr);
+                    }
+                    if (response.success) {
+                        // Redirect to the previous page upon successful registration
+                        window.location.href = response.redirect;
+                    }
+                } catch (error) {
+                    console.error('Error parsing JSON: ' + error);
+                    console.log(xhr.responseText);
+                    // Handle the case where the response is not valid JSON
+                }
+            } else {
+                console.error('AJAX error: ' + xhr.status + ' - ' + xhr.statusText);
+            }
+        }
+    };
+    xhr.send(formData);
 }

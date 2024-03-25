@@ -1,4 +1,9 @@
-#editButton{
+#editButton, #delete-post{
     width: auto;
     float: right;
+}
+#delete-post{
+    margin-left: 1em;
+    background-color: red;
+    border-color: red;
 }

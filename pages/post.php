@@ -1,8 +1,9 @@
 <?php require_once ('../includes/header.php'); ?>
+
 <head>
-<link href="../css/index.css" rel="stylesheet">
-<link href="../css/postpage.css" rel="stylesheet">
-<script src="../js/postinfo.js"></script>
+    <link href="../css/index.css" rel="stylesheet">
+    <link href="../css/postpage.css" rel="stylesheet">
+    <script src="../js/postinfo.js"></script>
 </head>
 
 <body>
@@ -81,16 +82,18 @@
                         <!-- load hte post info -->
                         <div class="post-container" data-id="<?php echo $posts[0]['postID'] ?>">
                             <h2 class="post-title">
-                                <?php echo htmlspecialchars($posts[0]['title']); ?>
                                 <?php if (isset ($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) {
-                                    echo "<div><button class=\"btn btn-primary edit-btn\" id=\"editButton\" data-bs-toggle=\"modal\" data-bs-target=\"#editPost\">Edit</button></div>";  
+                                    echo "<div><button class=\"btn btn-primary edit-btn\" id=\"delete-post\">Delete Post</button></div>";
+                                    echo "<div><button class=\"btn btn-primary edit-btn\" id=\"editButton\" data-bs-toggle=\"modal\" data-bs-target=\"#editPost\">Edit</button></div>";
                                 } ?>
+                                <?php echo htmlspecialchars($posts[0]['title']); ?>
                             </h2>
                             <p class="post-text">
-                                <?php echo htmlspecialchars($posts[0]['content']); ?> <?php echo htmlspecialchars($posts[0]['title']); ?>
+                                <?php echo htmlspecialchars($posts[0]['content']); ?>
+                                <?php echo htmlspecialchars($posts[0]['title']); ?>
                             </p>
                             <p class="image-container post-img">
-                                <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>"> 
+                                <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>">
                             </p>
                             <div class="user-input-post">
                                 <input class="form-control comment-input" id="commentBox" type="text"
@@ -156,8 +159,7 @@
         <?php } ?>
 
         <!-- this will be the modal that allows an admin to edit the post -->
-        <div class="modal fade" id="editPost" tabindex="-1" aria-labelledby="editPostModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="editPost" tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -168,12 +170,14 @@
 
                         <form action="javascript:void(0);" method="POST" id="edit-post-form">
                             <div class="mb-3">
-                                <label for="edit-post-title" class="form-label" id="edit-title-label">Title</label>  
-                                <input type="text" class="form-control" id="edit-post-title" name="title" value="<?php echo htmlspecialchars($posts[0]['title']); ?>">
+                                <label for="edit-post-title" class="form-label" id="edit-title-label">Title</label>
+                                <input type="text" class="form-control" id="edit-post-title" name="title"
+                                    value="<?php echo htmlspecialchars($posts[0]['title']); ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="postContent" class="form-label" id="content-label">Content</label>
-                                <textarea class="form-control" id="postContent" rows="3" name="content"><?php echo htmlspecialchars($posts[0]['content']);?></textarea>
+                                <textarea class="form-control" id="postContent" rows="3"
+                                    name="content"><?php echo htmlspecialchars($posts[0]['content']); ?></textarea>
                             </div>
                             <input type="hidden" name="hiddenpostid" value="<?php echo $posts[0]['postID'] ?>">
                         </form>

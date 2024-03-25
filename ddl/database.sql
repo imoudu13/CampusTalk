@@ -93,8 +93,8 @@ CREATE TABLE Likes(
     userID INT,
     postID INT,
     PRIMARY KEY(userID, postID),
-    FOREIGN KEY (userID) REFERENCES Users(userID),
-    FOREIGN KEY (postID) REFERENCES Posts(postID)
+    FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
+    FOREIGN KEY (postID) REFERENCES Posts(postID) ON DELETE CASCADE
 );
 
 

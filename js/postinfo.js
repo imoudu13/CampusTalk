@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     displayDepartmentsOnLoad();
 
-    
     // setInterval(refreshPage, 10000);
     document.getElementById('edit-post-button').addEventListener('click', function () {
         resetLabelsForEdit(false);
@@ -16,7 +15,38 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     let postId = sessionStorage.getItem('postId');
 
+    document.getElementById('delete-post').addEventListener('click', function () {
+        let formData = new FormData();
+        formData.append('postId', postId); // Append postId to the form data
 
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../processing/removepost.php', true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    try {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            // there is an error
+                            console.log(xhr);
+                        }
+                        if (response.success) {
+                            // Redirect to the previous page upon successful registration
+                            window.location.href = 'index.php';
+                        }
+                    } catch (error) {
+                        console.error('Error parsing JSON: ' + error);
+                        console.log(xhr.responseText);
+                        // Handle the case where the response is not valid JSON
+                    }
+                } else {
+                    console.error('AJAX error: ' + xhr.status + ' - ' + xhr.statusText);
+                }
+            }
+        };
+        xhr.send(formData);
+    });
     document.getElementById('commentButton').addEventListener('click', function () {
         let content = document.getElementById('commentBox').value;
 
@@ -107,7 +137,7 @@ function sendToEditPost() {
     let formData = new FormData(document.getElementById("edit-post-form"));
     console.log("here");
     // Send the form data to the login processing file
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('POST', '../processing/editpost.php', true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.onreadystatechange = function () {

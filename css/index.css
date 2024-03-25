@@ -80,6 +80,8 @@ main {
 }
 .topic-header{
     margin-left: 0.25em;
+    margin-bottom: -0.125em;
+    font-size: small;
 }
 .sidebar-item a{
     height: 100%;
@@ -92,7 +94,7 @@ main {
     justify-content: space-between;
 }
 .sidebar-item:hover{
-    background-color: #336181;
+    background-color: #818182;
 }
 #toggle-columns{
     display: none !important;

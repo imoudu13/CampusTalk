@@ -9,15 +9,12 @@
         <div class = "sidebar-content">
             <div class = "left-sidebar-topic">
                 <p class = "sidebar-item left-item">
-                    <a href="#">Home</a>
-                </p>
-                <p class = "sidebar-item left-item">
-                    <a href="#">Trending Now</a>
+                    <a href="index.php">Home</a>
                 </p>
             </div>
             <div class = "left-sidebar-topic sidebar-border-top">
                 <p class = "topic-header">
-                    <span style="color: white">Major</span>
+                    <span>Department</span>
                 </p>
                 <div id = "department-container">
 

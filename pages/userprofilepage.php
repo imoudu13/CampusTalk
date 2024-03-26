@@ -43,19 +43,6 @@
                     
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-work">
-                            <p>Your Communities</p>
-                            <a href="">Data Science</a><br/>
-                            <a href="">Management</a><br/>
-                            <a href="">UBCO Heat</a>
-                            <p>Posts</p>
-                            <a href="">Thoughts on COSC360?</a><br/>
-                            <a href="">Freelance Tutor in Kelowna</a><br/>
-                            <a href="">How to get good sleep as a student?</a><br/>
-
-                        </div>
-                    </div>
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">

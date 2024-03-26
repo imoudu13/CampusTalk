@@ -42,7 +42,7 @@ function sendToPhp() {
                     console.log(xhr);
                     let response = JSON.parse(xhr.responseText);
                     if (response.error) {
-                        // there is an error
+                        alert(response.error);
                     }
                     if (response.success) {
                         // Redirect to the previous page upon successful registration

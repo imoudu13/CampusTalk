@@ -1,6 +1,5 @@
 <?php
-include("../includes/connection.php");
-include("../processing/login.php");
+require_once("../includes/connection.php");
 
 //try inserting into the db. If the username is not unique there will be an error, 
 $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
@@ -30,7 +29,7 @@ try {
 
 
     // bind parameters
-    $stmt->bind_param("sssssb", $username, $firstname, $lastname, $email, $password);
+    $stmt->bind_param("sssssb", $username, $firstname, $lastname, $email, $password, $image);
 
     // execute
     if (!$stmt->execute()) {
@@ -40,23 +39,14 @@ try {
             throw new Exception("Error in executing statement: " . $stmt->error);
         }
     } else {
-        // successful insertion, log user in then send success message
-        $sql = "SELECT userID FROM Users WHERE username = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $userID;
-        $stmt->bind_result($userID);
-        $stmt->fetch();
-
-        login($username, $userID, 0);
+        // Successful insertion, send success message
         echo json_encode(array("success" => true, "redirect" => "index.php"));
     }
 
-    // close resources
+    // Close the statement and connection
     $stmt->close();
     $conn->close();
 } catch (Exception $e) {
-    // return excveptions, good for debugging
+    // Handle any exceptions here
     echo json_encode(array("error" => "An error occurred", "redirect" => "index.php"));
 }

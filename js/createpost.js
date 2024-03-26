@@ -16,8 +16,16 @@ function verifyPost() {
         document.getElementById('departmentLabel').style.setProperty('color', 'red', 'important');
     }
     else {
+        let isEnabled = sessionStorage.getItem('isEnabled');
         //send to the php file for insertion
-        if (isGoodPost) insertPost();
+
+        if(isEnabled == 1){
+            if (isGoodPost) sendToPhp();
+        }
+        else {
+            alert("You have been disabled by an admin. Cannot create post :(")
+        }
+
     }
 }
 
@@ -28,7 +36,7 @@ function resetLabels(error) {
 }
 
 //this function send shit to php
-function insertPost() {
+function sendToPhp() {
     let formData = new FormData(document.getElementById("create-post-form"));
     // Send the form data to the login processing file
     var xhr = new XMLHttpRequest();

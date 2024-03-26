@@ -178,7 +178,7 @@ function displayPostsOnLoad(department){
                 link.classList.add('post-link');
 
                 link.addEventListener('click', function(event) {
-                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('comment-input') && !event.target.classList.contains('like-count')) {
+                    if (!event.target.classList.contains('like-btn') && !event.target.classList.contains('like-count')) {
                         let postId = post.postID; // Assuming post.postID contains the ID
                         sessionStorage.setItem('postId', postId);
                         // Redirect to post.php

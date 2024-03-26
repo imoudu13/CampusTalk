@@ -1,4 +1,3 @@
-let isEnabled = sessionStorage.getItem('isEnabled');
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('submit-post').addEventListener('click', verifyPost);
 });
@@ -17,6 +16,7 @@ function verifyPost() {
         document.getElementById('departmentLabel').style.setProperty('color', 'red', 'important');
     }
     else {
+        let isEnabled = sessionStorage.getItem('isEnabled');
         //send to the php file for insertion
         if(isEnabled == 1){
             if (isGoodPost) sendToPhp();

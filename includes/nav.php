@@ -3,6 +3,7 @@ session_start();
 
 // Include login.php
 include ("../processing/login.php");
+
 // Include connection.php so we can load departments into create post modal
 require_once('../includes/connection.php');
 // Check if the current page is index.php. If not that means someone is only user profile page or admin page
@@ -186,11 +187,11 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" required>
+                        <input type="password" class="form-control" name="password" id="password" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirmpassword" class="form-label">Confirm Your Password</label>
-                        <input type="password" class="form-control" name="confirmpassword" required>
+                        <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>

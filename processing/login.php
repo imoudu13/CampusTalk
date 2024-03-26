@@ -1,5 +1,5 @@
 <?php
-include ("../includes/connection.php");
+require_once("../includes/connection.php");
 
 // This is the function that logs a user in, it creates a session, give it a timeout and stores the users information in the session so we can use it in other places
 function login($username, $userID, $isAdmin)
@@ -67,7 +67,7 @@ try {
             } else {
                 $stmt->close();
                 $conn->close();
-                echo json_encode(array("error" => "incorrect password", "password" => "$userpassword", "redirect" => "$referrer"));
+                echo json_encode(array("error" => "incorrect password", "redirect" => "$referrer"));
             }
         }
     } else {

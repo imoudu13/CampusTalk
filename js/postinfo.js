@@ -254,7 +254,7 @@ function displayDepartmentsOnLoad() {
                 link.setAttribute('href', '#');
                 link.textContent = department.departmentName;
                 link.onclick = function () {
-                    displayPostsOnLoad(this.getAttribute('data-id'));
+                    window.location.href = 'index.php?dataId=' + encodeURIComponent(this.getAttribute('data-id'));
                 };
 
 

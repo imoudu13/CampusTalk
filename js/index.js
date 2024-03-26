@@ -4,8 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.right').classList.toggle('collapsed');
     });
     //display most recent posts on page load. This is for registered and non-registered users
-    const initialPostDepartment = "all"
-    displayPostsOnLoad(initialPostDepartment);
+    let urlParams = new URLSearchParams(window.location.search);
+    let dataId = urlParams.get('dataId');
+    if(dataId) {
+        displayPostsOnLoad(dataId);
+    }else{
+        let initialPostDepartment = "all"
+        displayPostsOnLoad(initialPostDepartment);
+    }
+
+
     //display all departments on load
     displayDepartmentsOnLoad();
 

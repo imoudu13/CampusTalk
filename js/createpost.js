@@ -16,15 +16,8 @@ function verifyPost() {
         document.getElementById('departmentLabel').style.setProperty('color', 'red', 'important');
     }
     else {
-        let isEnabled = sessionStorage.getItem('isEnabled');
         //send to the php file for insertion
-        if(isEnabled == 1){
             if (isGoodPost) sendToPhp();
-        }
-        else {
-            alert("You have been disabled by an admin. Cannot create post :(")
-        }
-
     }
 }
 

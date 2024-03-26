@@ -61,15 +61,98 @@ function displayUsersModal(users) {
 
     // Populate modal with fetched users
     users.forEach(user => {
+        const userContainer = document.createElement('div');
+        userContainer.classList.add('user-container');
+        userContainer.style.display = 'flex';
+        userContainer.style.alignItems = 'center';
+        userContainer.style.margin = '0.25em';
+
         const userElement = document.createElement('p');
-        userElement.textContent = user.username; // Assuming each user object has a 'username' property
-        modalBody.appendChild(userElement);
+        userElement.textContent = user.username;
+        userElement.style.flexGrow = '1';
+        userContainer.appendChild(userElement);
+        // Check if the user is enabled
+        if (user.isEnabled == 1) {
+            // If enabled, display disable button
+            const disableButton = document.createElement('button');
+            disableButton.textContent = 'Disable';
+            disableButton.classList.add('btn', 'btn-sm', 'btn-danger', 'disable-btn');
+            disableButton.style.marginLeft = '10px';
+            disableButton.setAttribute('data-user-id', user.userID);
+            disableButton.addEventListener('click', disableUser);
+            userContainer.appendChild(disableButton);
+        } else {
+            // If disabled, display enable button
+            const enableButton = document.createElement('button');
+            enableButton.textContent = 'Enable';
+            enableButton.classList.add('btn', 'btn-sm', 'btn-success', 'enable-btn');
+            enableButton.style.marginLeft = '10px';
+            enableButton.setAttribute('data-user-id', user.userID);
+            enableButton.addEventListener('click', enableUser);
+            userContainer.appendChild(enableButton);
+        }
+
+
+        modalBody.appendChild(userContainer);
     });
 
     // Show the modal
     const userModal = new bootstrap.Modal(document.getElementById('userModal'));
     userModal.show();
 }
+
+function enableUser(){
+    let userID = this.getAttribute('data-user-id');
+    let newIsEnabledValue = 1;
+    toggleEnabled(userID,newIsEnabledValue);
+}
+function disableUser(){
+    let userID = this.getAttribute('data-user-id');
+    let newIsEnabledValue = 0;
+    toggleEnabled(userID,newIsEnabledValue);
+}
+function toggleEnabled(userID, newIsEnabledValue){
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../processing/enable_disable_user.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let responseData = JSON.parse(xhr.responseText);
+
+            // Find the button associated with the user ID
+            const button = document.querySelector(`button[data-user-id="${userID}"]`);
+
+            if (newIsEnabledValue == 0) { // Enabling
+                button.classList.remove('btn-danger', 'disable-btn');
+                button.classList.add('btn-success', 'enable-btn');
+                button.textContent = 'Enable';
+                button.removeEventListener('click', disableUser);
+                button.addEventListener('click', enableUser);
+            } else { // Disabling
+                button.classList.remove('btn-success', 'enable-btn');
+                button.classList.add('btn-danger', 'disable-btn');
+                button.textContent = 'Disable';
+                button.removeEventListener('click', enableUser);
+                button.addEventListener('click', disableUser);
+            }
+
+        } else {
+            console.error('Error disabling/enabling users', xhr.statusText);
+        }
+    };
+
+        xhr.onerror = function() {
+            console.error('Error disabling/enabling users', xhr.statusText);
+        };
+
+        // Send the query and type as POST data
+        let enabledData = `userID=${encodeURIComponent(userID)}&newIsEnabledValue=${encodeURIComponent(newIsEnabledValue)}`;
+        xhr.send(enabledData);
+
+}
+
 
 
 

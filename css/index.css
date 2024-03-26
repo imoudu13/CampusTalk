@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -8,103 +8,129 @@ body {
     flex-direction: column;
     margin: 0;
 }
+
 header {
     background-color: #333;
     color: #fff;
 }
-a{
+
+a {
     text-decoration: none;
 }
-p{
+
+p {
     margin: 0;
 }
+
 main {
     margin-top: 56px;
     display: flex;
     width: 100%;
     justify-content: space-around;
 }
-.main-content{
+
+.main-content {
     flex: 1;
     padding: 0 1% 0 1%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.left, .right {
+
+.left,
+.right {
     margin: 0 2.5% 0 2.5%;
     position: sticky;
     align-self: flex-start;
     top: 70px;
 }
-.right{
+
+.right {
     width: 175px;
 }
-.left{
+
+.left {
     max-height: calc(100vh - 56px);
     overflow-y: auto;
     width: 175px;
     border-right: 1px solid;
 }
-.post-container p img{
+
+.post-container p img {
     max-width: 100%;
 
 }
-.post-container{
+
+.post-container {
     background-color: #8598A6;
     margin: 1em 0 1em 0;
     display: flex;
     flex-direction: column;
     padding: 1em;
-    border-top: 1px solid ;
+    border-top: 1px solid;
 }
-.post-container p{
+
+.post-container p {
     color: black;
 }
-.post-text, .image-container{
+
+.post-text,
+.image-container {
     margin-bottom: 1em;
 }
-.post-container:hover{
+
+.post-container:hover {
     background-color: white;
 }
-.image-container{
+
+.image-container {
     background-color: rgb(0 0 0 / 50%);
     display: flex;
     justify-content: center;
 }
-.sidebar-border-top{
+
+.sidebar-border-top {
     border-top: 1px solid darkgray;
 }
-.sidebar-item{
+
+.sidebar-item {
     padding: 0.25em;
 }
-.topic-header{
+
+.topic-header {
     margin-left: 0.25em;
     margin-bottom: -0.125em;
     font-size: small;
 }
-.sidebar-item a{
+
+.sidebar-item a {
     height: 100%;
     width: 100%;
     display: block;
 }
-.user-input-post{
+
+.user-input-post {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.sidebar-item:hover{
+
+.sidebar-item:hover {
     background-color: #818182;
 }
-#toggle-columns{
+
+#toggle-columns {
     display: none !important;
 }
-.liked{
+
+.liked {
     background-color: green;
 }
-.liked:hover{
+
+.liked:hover {
     background-color: green;
 }
+
 @media only screen and (max-width: 700px) {
     .left {
         display: none;
@@ -120,14 +146,32 @@ main {
         margin: 20px;
     }
 }
+
 @media only screen and (max-width: 700px) {
-    .left.collapsed, .right.collapsed {
+
+    .left.collapsed,
+    .right.collapsed {
         display: block;
         position: fixed;
-        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-        z-index: 9999; /* Ensure it's above other content */
+        background-color: rgba(255, 255, 255, 0.9);
+        /* Semi-transparent white background */
+        z-index: 9999;
+        /* Ensure it's above other content */
     }
-    #toggle-columns{
+
+    #toggle-columns {
         display: block !important;
     }
+}
+
+.user-pic-username-container {
+    display: flex;
+    /* Use flexbox layout */
+    align-items: center;
+    /* Align items vertically center */
+}
+
+.user-pic-username-container img {
+    margin-left: 10px;
+    /* Add space between h5 and image */
 }

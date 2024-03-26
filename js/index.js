@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
             handleAdminSearch(searchQuery, searchType);
         });
     }
-
 });
 
 function handleAdminSearch(query, type) {
@@ -152,10 +151,6 @@ function toggleEnabled(userID, newIsEnabledValue){
         xhr.send(enabledData);
 
 }
-
-
-
-
 function displayPostsOnLoad(department){
     let postsContainer = document.querySelector('.posts-container');
     postsContainer.innerHTML = '';
@@ -165,8 +160,9 @@ function displayPostsOnLoad(department){
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 400) {
             // Parse the JSON response. This will return an array of posts
+            console.log(xhr);
             let posts = JSON.parse(xhr.responseText);
-
+            
             // Iterate through the posts and display them
             posts.forEach(function(post) {
                 // Create HTML elements for post title, content, and image
@@ -182,6 +178,27 @@ function displayPostsOnLoad(department){
                     }
                 });
 
+                // create a div for username and user image
+                let userInfoContainer = document.createElement('div');
+                userInfoContainer.classList.add("user-pic-username-container");
+                
+                // profile pic
+                let userProfilePic = document.createElement('img');
+                userProfilePic.src = 'data:image/png;base64,' + post.profilepic;
+
+                // username
+                let username = document.createElement('h5');
+                username.classList.add('usernames');
+                username.innerHTML = post.username;
+                console.log(post.username);
+
+                userInfoContainer.appendChild(username);
+                if(post.profilepic) userInfoContainer.appendChild(userProfilePic);
+
+                let commentInput = document.createElement('input');
+                commentInput.classList.add('form-control', 'comment-input');
+                commentInput.setAttribute('type', 'text');
+                commentInput.setAttribute('placeholder', 'Write a comment...');
 
                 let postContainer = document.createElement('div');
                 postContainer.classList.add('post-container');
@@ -204,10 +221,6 @@ function displayPostsOnLoad(department){
                 let userInputContainer = document.createElement('div');
                 userInputContainer.classList.add('user-input-post');
 
-                let commentInput = document.createElement('input');
-                commentInput.classList.add('form-control', 'comment-input');
-                commentInput.setAttribute('type', 'text');
-                commentInput.setAttribute('placeholder', 'Write a comment...');
 
                 let likeButton = document.createElement('button');
                 likeButton.classList.add('btn', 'btn-primary', 'like-btn');
@@ -229,13 +242,17 @@ function displayPostsOnLoad(department){
                     likePost(clickedButton.getAttribute('data-post-id'), likeCount);
                 });
 
-
                 userInputContainer.appendChild(commentInput);
+
                 userInputContainer.appendChild(likeButton);
                 if(post.postImage){
                     imageContainer.appendChild(imageElement);
                 }
+
+                postContainer.appendChild(userInfoContainer);
                 postContainer.appendChild(titleElement);
+
+
                 postContainer.appendChild(contentElement);
                 postContainer.appendChild(imageContainer);
                 postContainer.appendChild(userInputContainer);

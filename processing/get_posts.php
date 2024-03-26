@@ -7,12 +7,12 @@ function getPosts() {
     if (isset($_GET['department'])) {
         $department = $_GET['department'];
         if ($department !== 'all') {
-            $sql = "SELECT * FROM Posts WHERE departmentID = $department LIMIT 1000";
+            $sql = "SELECT * FROM Posts JOIN Users ON Users.userID = Posts.userID WHERE departmentID = $department ORDER BY Posts.createdAt DESC LIMIT 1000;";
         } else {
-            $sql = "SELECT * FROM Posts LIMIT 1000";
+            $sql = "SELECT * FROM Users JOIN Posts ON Users.userID = Posts.userID ORDER BY Posts.createdAt DESC LIMIT 1000;";
         }
     } else {
-        $sql = "SELECT * FROM Posts LIMIT 1000";
+        $sql = "SELECT * FROM Posts JOIN Users ON Users.userID = Posts.userID ORDER BY Posts.createdAt DESC LIMIT 1000;";
     }
     // Check connection
     if ($conn->connect_error) {
@@ -25,6 +25,7 @@ function getPosts() {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             // Convert the binary image data to base64 encoding
+            $profilepic = base64_encode($row['profileimage']);
             $imageData = base64_encode($row['postImage']);
             $postId = $row['postID'];
             // Find department from department id
@@ -73,6 +74,8 @@ function getPosts() {
                 'courseID' => $row['courseID'],
                 'postImage' => $imageData, // Include the image data
                 'createdAt' => $row['createdAt'],
+                'username' => $row['username'],
+                'profilepic' => $profilepic,
                 'isLiked' => $isLiked,
                 'numLikes' => $numLikes
             ];

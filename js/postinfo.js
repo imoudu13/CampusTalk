@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             sendToEditPost();
         }
     });
+    
     let postId = sessionStorage.getItem('postId');
 
     document.getElementById('delete-post').addEventListener('click', function () {

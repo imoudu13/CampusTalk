@@ -3,6 +3,9 @@ include ("../includes/connection.php");
 
 // get the referrer info so that if it is set we can send the user back to the previous page upon completion of processing
 $referrer = isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
+session_start();
+
+$userid = $_SESSION['userID'];
 
 try {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset ($_POST['title']) && isset ($_POST['department'])) {
@@ -24,11 +27,11 @@ try {
             $image = null;
         }
 
-
+        
         // Insert data into the database
-        $stmt = $conn->prepare("INSERT INTO Posts (title, content, departmentID, postImage) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssib", $title, $content, $dept, $image);
-        $stmt->send_long_data(3, $image); // Send the image data as a parameter
+        $stmt = $conn->prepare("INSERT INTO Posts(title, content, userID, departmentID, postImage) VALUES(?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssiib", $title, $content, $userid, $dept, $image);
+        $stmt->send_long_data(4, $image); // Send the image data as a parameter
         $stmt->execute();
         $stmt->close();
         $conn->close();
@@ -40,3 +43,4 @@ try {
 } catch (Exception $e) {
     echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
 }
+

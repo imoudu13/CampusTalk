@@ -89,9 +89,16 @@
                                 <?php echo htmlspecialchars($posts[0]['content']); ?>
                                 <?php echo htmlspecialchars($posts[0]['title']); ?>
                             </p>
-                            <p class="image-container post-img">
-                                <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>">
-                            </p>
+
+                            <!-- Render the image if it isn't null -->
+                            <?php if($posts[0]['postImage'] != null) { ?>
+
+                                <p class="image-container post-img">
+                                    <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['postImage']); ?>">
+                                </p>
+
+                            <?php }?>
+
                             <div class="user-input-post">
                                 <input class="form-control comment-input" id="commentBox" type="text"
                                     placeholder="Write a comment...">

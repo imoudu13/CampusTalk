@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 include("../includes/connection.php");
 
 session_start();
@@ -52,7 +51,6 @@ try {
     // Show error message
     echo "Error: " . $e->getMessage();
 }
-=======
 include ("../includes/connection.php");
 
 if (isset($_POST['postId'])) {
@@ -106,4 +104,3 @@ if (isset($_POST['postId'])) {
         echo "Error: " . $e->getMessage();
     }
 }
->>>>>>> 74e632925415a7571e0555e674a17f71362e00b8

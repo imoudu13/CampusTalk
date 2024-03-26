@@ -10,31 +10,28 @@
     <?php require_once ('../includes/nav.php'); ?>
     <main>
         <div class="left">
-            <div class="sidebar-content">
-                <div class="left-sidebar-topic">
-                    <p class="sidebar-item left-item">
-                        <a href="#">Home</a>
-                    </p>
-                    <p class="sidebar-item left-item">
-                        <a href="#">Trending Now</a>
+            <div class = "sidebar-content">
+                <div class = "left-sidebar-topic">
+                    <p class = "sidebar-item left-item">
+                        <a href="index.php">Home</a>
                     </p>
                 </div>
-                <div class="left-sidebar-topic sidebar-border-top">
-                    <p class="topic-header">
-                        <span style="color: white">Major</span>
+                <div class = "left-sidebar-topic sidebar-border-top">
+                    <p class = "topic-header">
+                        <span>Department</span>
                     </p>
-                    <div id="department-container">
+                    <div id = "department-container">
 
                     </div>
                 </div>
-                <div class="left-sidebar-topic sidebar-border-top">
-                    <p class="sidebar-item left-item topic-header">
+                <div class = "left-sidebar-topic sidebar-border-top">
+                    <p class = "sidebar-item left-item topic-header">
                         <a href="#">Help</a>
                     </p>
-                    <p class="sidebar-item left-item ">
+                    <p class = "sidebar-item left-item ">
                         <a href="#">Report A Problem</a>
                     </p>
-                    <p class="sidebar-item left-item ">
+                    <p class = "sidebar-item left-item ">
                         <a href="#">Contact Us</a>
                     </p>
                 </div>

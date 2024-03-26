@@ -49,12 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send(formData);
     });
     document.getElementById('commentButton').addEventListener('click', function () {
-        let isEnabled = sessionStorage.getItem('isEnabled');
-        if(isEnabled !==1){
-            alert("You have been disabled by an admin. You cannot leave comments :(");
-            return;
-        }
-
         let content = document.getElementById('commentBox').value;
 
         let requestData = {
@@ -75,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error) {
                             // print to console
+                            alert(response.error);
                             console.error('Error: ' + response.error);
                         }
                         if (response.success) {

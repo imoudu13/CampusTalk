@@ -14,6 +14,8 @@ try {
         $stmt->bind_param("ii", $newIsEnabledValue,$userID);
         $stmt->execute();
 
+        $_SESSION['isEnabled'] = $newIsEnabledValue;
+
     // Close the statements and connection
     $stmt->close();
     $conn->close();

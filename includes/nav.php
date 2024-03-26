@@ -193,6 +193,10 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                         <label for="confirmpassword" class="form-label">Confirm Your Password</label>
                         <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="profile-image" class="form-label" id="image-label">Upload Image</label>
+                        <input type="file" class="form-control" name="profileimage" id="profileimage" accept="image/*">
+                    </div>
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>
             </div>

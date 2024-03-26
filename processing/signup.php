@@ -13,25 +13,35 @@ try {
     $password = $_POST['password'];
 
 
-    // Create connection
+    // Handle image upload separately
+    if (isset ($_FILES['profileimage']) && $_FILES['profileimage']['error'] === UPLOAD_ERR_OK) {
+        $image = $_FILES['profileimage']['name'];
+        // Process and move the uploaded file to desired location
+        $image = file_get_contents($_FILES['profileimage']['tmp_name']);
+    } else {
+        // Handle case where image is not uploaded
+        $image = null;
+    }
+
+    // create connection
     $conn = connectToDB();
 
-    // Check connection
+    // check for connection error
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepare the insert statement with placeholders
-    $sql = "INSERT INTO Users (username, firstname, lastname, email, userpassword) VALUES (?, ?, ?, ?, ?)";
+    // prepare the insert statement with placeholders
+    $sql = "INSERT INTO Users (username, firstname, lastname, email, userpassword, profileimage) VALUES (?, ?, ?, ?, ?, ?)";
 
-    // Create a prepared statement
+    // create prepared statement
     $stmt = $conn->prepare($sql);
 
 
-    // Bind parameters
-    $stmt->bind_param("sssss", $username, $firstname, $lastname, $email, $password);
+    // bind parameters
+    $stmt->bind_param("sssssb", $username, $firstname, $lastname, $email, $password, $image);
 
-    // Execute the statement
+    // execute
     if (!$stmt->execute()) {
         if ($conn->errno == 1062) { // MySQL error code for duplicate entry
             echo json_encode(array("error" => "username_not_unique", "redirect" => "index.php"));

@@ -4,18 +4,18 @@ include ("../includes/connection.php");
 // get the referrer info so that if it is set we can send the user back to the previous page upon completion of processing
 $referrer = isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
 
-try{
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['title']) && isset($_POST['department'])){
+try {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset ($_POST['title']) && isset ($_POST['department'])) {
         $conn = connectToDB();
 
-        
+
         $title = $_POST['title'];
         $content = $_POST['content'];
         $dept = $_POST['department'];
-        
-        
-         // Handle image upload separately
-         if (isset($_FILES['imageupload']) && $_FILES['imageupload']['error'] === UPLOAD_ERR_OK) {
+
+
+        // Handle image upload separately
+        if (isset ($_FILES['imageupload']) && $_FILES['imageupload']['error'] === UPLOAD_ERR_OK) {
             $image = $_FILES['imageupload']['name'];
             // Process and move the uploaded file to desired location
             $image = file_get_contents($_FILES['imageupload']['tmp_name']);
@@ -23,7 +23,7 @@ try{
             // Handle case where image is not uploaded
             $image = null;
         }
-        
+
 
         // Insert data into the database
         $stmt = $conn->prepare("INSERT INTO Posts (title, content, departmentID, postImage) VALUES (?, ?, ?, ?)");
@@ -37,6 +37,6 @@ try{
     } else {
         echo json_encode(array("error" => "Invalid request or missing parameters", "redirect" => $referrer));
     }
-}catch(Exception $e){
+} catch (Exception $e) {
     echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
 }

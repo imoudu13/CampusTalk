@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error) {
                             // print to console
+                            alert(response.error);
                             console.error('Error: ' + response.error);
                         }
                         if (response.success) {

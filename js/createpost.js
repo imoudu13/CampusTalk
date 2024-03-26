@@ -18,6 +18,7 @@ function verifyPost() {
     else {
         let isEnabled = sessionStorage.getItem('isEnabled');
         //send to the php file for insertion
+
         if(isEnabled == 1){
             if (isGoodPost) sendToPhp();
         }
@@ -37,7 +38,6 @@ function resetLabels(error) {
 //this function send shit to php
 function sendToPhp() {
     let formData = new FormData(document.getElementById("create-post-form"));
-
     // Send the form data to the login processing file
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '../processing/createpost.php', true);
@@ -46,7 +46,6 @@ function sendToPhp() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 try {
-                    console.log(xhr);
                     let response = JSON.parse(xhr.responseText);
                     if (response.error) {
                         // there is an error

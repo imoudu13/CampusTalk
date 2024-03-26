@@ -195,7 +195,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                     </div>
                     <div class="mb-3">
                         <label for="profile-image" class="form-label" id="image-label">Upload Image</label>
-                        <input type="file" class="form-control" id="profile-image" accept="image/*" name="profileimage">
+                        <input type="file" class="form-control" name="profileimage" id="profileimage" accept="image/*">
                     </div>
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>

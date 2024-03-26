@@ -11,7 +11,17 @@ try {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $image = $_POST['profileimage'];
+
+
+    // Handle image upload separately
+    if (isset ($_FILES['profileimage']) && $_FILES['profileimage']['error'] === UPLOAD_ERR_OK) {
+        $image = $_FILES['profileimage']['name'];
+        // Process and move the uploaded file to desired location
+        $image = file_get_contents($_FILES['profileimage']['tmp_name']);
+    } else {
+        // Handle case where image is not uploaded
+        $image = null;
+    }
 
     // create connection
     $conn = connectToDB();

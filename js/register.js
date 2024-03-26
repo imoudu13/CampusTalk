@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 window.location.href = response.redirect;
                             }
                         } catch (error) {
-                            console.log("Please enter a unique username");
+                            console.log(xhr);
                             console.error('Error parsing JSON: ' + error);
                             console.log(xhr.responseText);
                             // Handle the case where the response is not valid JSON

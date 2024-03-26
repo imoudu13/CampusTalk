@@ -116,6 +116,7 @@ function displayPost(post) {
 =======
     displayDepartmentsOnLoad();
 });
+
 function displayDepartmentsOnLoad(){
     let departmentContainer = document.querySelector('#department-container');
     // Make an AJAX request to fetch posts data from get_posts.php

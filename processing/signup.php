@@ -12,7 +12,7 @@ try {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
+    $image = $_POST['profileimage'];
 
     // create connection
     $conn = connectToDB();
@@ -23,14 +23,14 @@ try {
     }
 
     // prepare the insert statement with placeholders
-    $sql = "INSERT INTO Users (username, firstname, lastname, email, userpassword) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO Users (username, firstname, lastname, email, userpassword, profileimage) VALUES (?, ?, ?, ?, ?, ?)";
 
     // create prepared statement
     $stmt = $conn->prepare($sql);
 
 
     // bind parameters
-    $stmt->bind_param("sssss", $username, $firstname, $lastname, $email, $password);
+    $stmt->bind_param("sssssb", $username, $firstname, $lastname, $email, $password);
 
     // execute
     if (!$stmt->execute()) {

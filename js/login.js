@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('loginform').addEventListener('submit', submission);
 
     const logoutButton = document.getElementById("logout");
-    if (logoutButton){
+    if (logoutButton) {
         // Logout button click event
-        document.getElementById("logout").addEventListener("click", function(e) {
+        document.getElementById("logout").addEventListener("click", function (e) {
             e.preventDefault();
             // Make an AJAX request to logout.php
             fetch('../processing/logout.php', {
@@ -42,7 +42,7 @@ function submission(e) {
     } else if (password === "") {  // make sure pw is entered
         document.getElementById('passwordlabel').textContent = "Please enter a password";
         document.getElementById('passwordlabel').style.color = "red";
-    } else {  
+    } else {
         // if both are entered then process the info in php
         sendData();
     }
@@ -60,25 +60,21 @@ function sendData() {
                 try {
                     let response = JSON.parse(xhr.responseText);
                     if (response.error === "no result") {
-                        // Unrecognized username
-                        logout();
+                        resetLabels();
                         document.getElementById('usernamelabel').textContent = "Incorrect username";
                         document.getElementById('usernamelabel').style.color = "red";
-                    }
-                    if (response.error === "incorrect password") {
-                        // Unrecognized username
-                        logout();
+                        document.getElementById('passwordlabel').textContent = "Password";
+                        document.getElementById('passwordlabel').style.color = "black";
+                    } else if (response.error === 'incorrect password') {
+                        document.getElementById('usernamelabel').textContent = "Username";
+                        document.getElementById('usernamelabel').style.color = "black";
                         document.getElementById('passwordlabel').textContent = "Incorrect password";
                         document.getElementById('passwordlabel').style.color = "red";
-                    }
-                    if (response.success) {
+                    } else if (response.success) {
                         // Redirect to the previous page upon successful registration
                         window.location.href = response.redirect;
-                        login();
                     }
                 } catch (error) {
-                    console.log("Please enter a unique username");
-                    console.error('Error parsing JSON: ' + error);
                     console.log(xhr.responseText);
                     // Handle the case where the response is not valid JSON
                 }
@@ -101,13 +97,9 @@ function resetLabels() {
 // these functions are responsible for display or hidding the login/logout buttons when a user logs in or out
 function login() {
     document.getElementById("loginbutton").style.display = 'none';
-    console.log('User is logged in');
-
     document.getElementById("logout").style.display = 'inline';
 }
 function logout() {
     document.getElementById('loginbutton').style.display = 'block';
-    console.log('User is logged out');
-
     document.getElementById("logout").style.display = 'none';
 }

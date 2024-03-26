@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('signupform').addEventListener('submit', function (e) {
-        let password = document.getElementsByName('password')[0].value;
-        let confirm = document.getElementsByName('confirmpassword')[0].value;
+        let password = document.getElementById('password').value;
+        let confirm = document.getElementById('confirmpassword').value;
 
         if (password !== confirm) {
             alert('Please make sure your passwords match');

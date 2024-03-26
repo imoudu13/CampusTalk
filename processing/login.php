@@ -2,7 +2,7 @@
 require_once("../includes/connection.php");
 
 // This is the function that logs a user in, it creates a session, give it a timeout and stores the users information in the session so we can use it in other places
-function login($username, $userID, $isAdmin)
+function login($username, $userID, $isAdmin, $isEnabled)
 {
     // Start or resume the session if it's not already started
     if (session_status() == PHP_SESSION_NONE) {
@@ -13,6 +13,7 @@ function login($username, $userID, $isAdmin)
     $_SESSION['username'] = $username;
     $_SESSION['userID'] = $userID;
     $_SESSION['isAdmin'] = $isAdmin;
+    $_SESSION['isEnabled'] = $isEnabled;
 
     // Session will timeout in an hour
     $timeout_seconds = 3600;
@@ -39,7 +40,7 @@ try {
             throw new Exception("Connection failed: " . $conn->connect_error);
         }
 
-        $query = "SELECT userID, userpassword, isAdmin FROM Users WHERE username = ?;";
+        $query = "SELECT userID, userpassword, isAdmin, isEnabled FROM Users WHERE username = ?;";
 
         $stmt = $conn->prepare($query);
         $stmt->bind_param("s", $username);
@@ -55,12 +56,12 @@ try {
         } else {
 
 
-            $stmt->bind_result($userID, $userpassword, $isAdmin);
+            $stmt->bind_result($userID, $userpassword, $isAdmin, $isEnabled);
 
             $stmt->fetch();
 
             if ($userpassword == $password) {
-                login($username, $userID, $isAdmin);
+                login($username, $userID, $isAdmin, $isEnabled);
                 $stmt->close();
                 $conn->close();
                 echo json_encode(array("success" => "welcome", "redirect" => "$referrer"));

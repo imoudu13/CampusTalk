@@ -1,3 +1,4 @@
+let isEnabled = sessionStorage.getItem('isEnabled');
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('submit-post').addEventListener('click', verifyPost);
 });
@@ -17,7 +18,13 @@ function verifyPost() {
     }
     else {
         //send to the php file for insertion
-        if (isGoodPost) sendToPhp();
+        if(isEnabled == 1){
+            if (isGoodPost) sendToPhp();
+        }
+        else {
+            alert("You have been disabled by an admin. Cannot create post :(")
+        }
+
     }
 }
 

@@ -1,3 +1,4 @@
+let isEnabled = sessionStorage.getItem('isEnabled');
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('toggle-columns').addEventListener('click', function() {
         document.querySelector('.left').classList.toggle('collapsed');
@@ -292,6 +293,11 @@ function displayDepartmentsOnLoad(){
     xhr.send();
 }
 function likePost(postId, likeCount) {
+    if (isEnabled !== 1){
+        alert("You have been disabled by an admin. Cannot like post :(");
+        return;
+    }
+
     fetch('../processing/like_post.php', {
         method: 'POST',
         headers: {

@@ -81,9 +81,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log(xhr);
                         let response = JSON.parse(xhr.responseText);
                         if (response.error) {
-                            // print to console
-                            alert(response.error);
-                            console.error('Error: ' + response.error);
+                            if(response.error === "You must login/signup to create a post"){
+                                let loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                                loginModal.show();
+                            }else{
+                                alert(response.error);
+                                console.error('Error: ' + response.error);
+                            }
                         }
                         if (response.success) {
                             window.location.href = response.redirect;

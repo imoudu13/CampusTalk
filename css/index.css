@@ -172,6 +172,15 @@ main {
 }
 
 .user-pic-username-container img {
+    margin-right: 1em;
+    width: 2em;
+    height: 2em;
+    border-radius: 2em;
     margin-left: 10px;
     /* Add space between h5 and image */
+}
+#profilepic{
+    width: 8em;
+    height: 8em;
+    border-radius: 8em;
 }

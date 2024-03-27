@@ -5,7 +5,7 @@ session_start();
 include ("../processing/login.php");
 
 // Include connection.php so we can load departments into create post modal
-require_once('../includes/connection.php');
+require_once ('../includes/connection.php');
 // Check if the current page is index.php. If not that means someone is only user profile page or admin page
 // Thus we will hide the create post button and search bar
 $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
@@ -17,6 +17,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
     <script src="../js/register.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/createpost.js"></script>
+    <script src="../js/profilemodal.js"></script>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color: #27374D !important;">
     <div class="container-fluid">
@@ -41,8 +42,8 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                 </form>
                 <?php if (isset ($_SESSION['username'])) { ?>
                     <!-- Dropdown for logged-in users -->
-                    <?php if($isIndexPage){ ?>
-                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#createPostModal"
+                    <?php if ($isIndexPage) { ?>
+                        <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#createPostModal"
                             id="createpost">Create Post</button>
                     <?php } ?>
                     <div class="dropdown">
@@ -51,7 +52,8 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="../pages/userprofilepage.php">Profile Settings</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#profilemodal">Profile Settings</a></li> <!-- Display a modal -->
                             <li><a class="dropdown-item" href="#" id="logout">Sign Out</a></li>
                         </ul>
                     </div>
@@ -64,7 +66,148 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
         </div>
     </div>
 </nav>
+<!-- Profile modal -->
+<!-- Data will get sent to profile.php-->
+<div class="modal fade" id="profilemodal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profilemodalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <?php
+                $userid = $_SESSION['userID'];
 
+                echo "<script>console.log('UserID:', $userid);</script>";
+
+                $query = "SELECT * FROM Users WHERE userID = ?;";
+                $conn = connectToDB();
+                $stmt = $conn->prepare($query);
+
+                $stmt->bind_param("i", $userid);
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+                $userinfo = $result->fetch_assoc();
+
+                $stmt->close();
+                $conn->close();
+                ?>
+                <!-- Render the image if it isn't null -->
+                <?php if ($userinfo['profileimage'] != null) { ?>
+                    <p id="profile-pic">
+                        <img id="profilepic" src="data:image/png;base64,<?php echo base64_encode($userinfo['profileimage']); ?>">
+                    <p>
+                        Click edit info to add a profile picture
+                    </p>
+                    </p>
+                <?php } else { ?>
+                    <div class="mb-3 profileinfo">
+                        <p>
+                            Click edit info to add a profile picture
+                        </p>
+                    </div>
+                <?php } ?>
+                <div class="mb-3 profileinfo">
+                    <p> <b> Username: </b>
+                        <?php echo $userinfo['username']; ?>
+                    </p>
+                </div>
+                <div class="mb-3 profileinfo">
+                    <p> <b> Firstname: </b>
+                        <?php echo $userinfo['firstname']; ?>
+                    </p>
+                </div>
+                <div class="mb-3 profileinfo">
+                    <p> <b> Lastname: </b>
+                        <?php echo $userinfo['lastname']; ?>
+                    </p>
+                </div>
+                <div class="mb-3 profileinfo">
+                    <p> <b> Email: </b>
+                        <?php echo $userinfo['email']; ?>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    data-bs-target="#edit-info-form-modal">Edit Info</button>
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    data-bs-target="#new-password-modal">Change Password</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Form for editing information -->
+<!-- profilemodal.js handles this -->
+<div class="modal fade" id="edit-info-form-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-info-form-label">Edit Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- The action is to ensure that javascript catches the form on submit -->
+                <form action="javascript:void(0);" method="POST" id="edit-info-form">
+                    <div class="mb-3">
+                        <label for="username" class="form-label" id="errorMessage">Username</label>
+                        <input type="text" class="form-control" name="new-username"
+                            value="<?php echo $userinfo['username']; ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="new-fname"
+                            value="<?php echo $userinfo['firstname']; ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="new-lname"
+                            value="<?php echo $userinfo['lastname']; ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name="new-email"
+                            value="<?php echo $userinfo['email']; ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="profile-image" class="form-label" id="image-label">Upload Image</label>
+                        <input type="file" class="form-control" name="new-profileimage" id="new-profileimage"
+                            accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- This modal is for a password change, it is handled by js -->
+<div class="modal fade" id="new-password-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="new-password-modal-label">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="javascript:void(0);" id="new-password-form" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label" id="new-password-label">Password</label>
+                        <input type="text" class="form-control" id="new-password" name="new-password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-password-confirm" class="form-label" id="new-password-confirm-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="new-password-confirm" name="new-password-confirm">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Login Popup Modal -->
 <!-- Data will get sent to login.php-->
 <div class="modal fade" id="loginModal" tabindex="-1">
@@ -98,7 +241,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
     </div>
 </div>
 <!-- This is the modal for creating a post -->
-<div class="modal fade" id="createPostModal" tabindex="-1" >
+<div class="modal fade" id="createPostModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -121,14 +264,15 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                         <input type="file" class="form-control" id="postImage" accept="image/*" name="imageupload">
                     </div>
                     <div class="mb-3">
-                        <label for="departmentSelect" class="form-label" id="departmentLabel">Select a Department</label>
+                        <label for="departmentSelect" class="form-label" id="departmentLabel">Select a
+                            Department</label>
                         <select class="form-select" id="departmentSelect" name="department">
                             <option value="0">Select a Department</option>
                             <?php
                             $conn = connectToDB();
                             // Check connection
                             if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
+                                die ("Connection failed: " . $conn->connect_error);
                             }
                             $sql = "SELECT * FROM Department";
                             $result = $conn->query($sql);
@@ -191,7 +335,8 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                     </div>
                     <div class="mb-3">
                         <label for="confirmpassword" class="form-label">Confirm Your Password</label>
-                        <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required>
+                        <input type="password" class="form-control" name="confirmpassword" id="confirmpassword"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="profile-image" class="form-label" id="image-label">Upload Image</label>

@@ -200,8 +200,9 @@ function displayPostsOnLoad(department){
                 username.innerHTML = post.username;
                 console.log(post.username);
 
-                userInfoContainer.appendChild(username);
                 if(post.profilepic) userInfoContainer.appendChild(userProfilePic);
+                userInfoContainer.appendChild(username);
+                
 
                 let commentInput = document.createElement('input');
                 commentInput.classList.add('form-control', 'comment-input');

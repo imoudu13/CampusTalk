@@ -1,6 +1,5 @@
 <head>
 <?php require_once('../includes/header.php'); ?>
-<<<<<<< HEAD
 <script src="../js/userprofilepage.js"></script>
 <link rel = "stylesheet" href= "../css/userprofilepage.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -9,8 +8,21 @@
 
 <body>
     <!-- include the nav.php -->
-    <?php require_once('../includes/nav.php');?>
+    <?php require_once('../includes/nav.php');
 
+    $userid = $_SESSION['userID'];
+
+    $query = "SELECT * FROM Users WHERE userID = ?;";
+    $conn = connectToDB();
+    $stmt = $conn->prepare($query);
+
+    $stmt->bind_param("i", $userid);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $userinfo = $result->fetch_assoc();
+    ?>
     <main>
 <div class="container emp-profile">
             <form method="post">
@@ -65,7 +77,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <!--DISPLAY USERNAME HERE -->
-                                            <p><strong><span id="username"></span></p>
+                                            <p><strong><span id="username"> <?php $userinfo['username']; ?></span></p>
                                             </div>
                                         </div>
                                         <div class="row">

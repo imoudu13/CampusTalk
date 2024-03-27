@@ -28,10 +28,7 @@ function displayUserProfile(user){
     document.getElementById('email').textContent = user.email;
     document.getElementById('firstName').textContent = user.firstName;
     document.getElementById('lastName').textContent = user.lastName;
-<<<<<<< HEAD
     document.getElementById('createdAt').textContent = user.createdAt;
-=======
->>>>>>> 74e632925415a7571e0555e674a17f71362e00b8
 }
 
 

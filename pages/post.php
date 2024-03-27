@@ -87,7 +87,6 @@
                             </h2>
                             <p class="post-text">
                                 <?php echo htmlspecialchars($posts[0]['content']); ?>
-                                <?php echo htmlspecialchars($posts[0]['title']); ?>
                             </p>
 
                             <!-- Render the image if it isn't null -->

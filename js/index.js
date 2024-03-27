@@ -329,7 +329,7 @@ function likePost(postId, likeCount) {
         .then(data => {
             if (data.error) {
                 // Alert the user to log in
-                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                let loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
                 loginModal.show();
             } else if (data.isLiked) {
                 // Highlight the like button

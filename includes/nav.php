@@ -18,6 +18,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
     <script src="../js/login.js"></script>
     <script src="../js/createpost.js"></script>
     <script src="../js/profilemodal.js"></script>
+    <script src="../js/nav.js"></script>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color: #27374D !important;">
     <div class="container-fluid">
@@ -37,9 +38,12 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                 </li>
             </ul>
             <div class="d-flex">
-                <form class="d-flex me-2 flex-grow-1">
-                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Search">
-                </form>
+                <?php if ($isIndexPage) { ?>
+                    <form class="d-flex me-2 flex-grow-1" id="nav-search-form">
+                        <input class="form-control me-2 flex-grow-1" id="nav-search-bar" type="search" placeholder="Search">
+                    </form>
+                <?php } ?>
+
                 <?php if (isset ($_SESSION['username'])) { ?>
                     <!-- Dropdown for logged-in users -->
                     <?php if ($isIndexPage) { ?>

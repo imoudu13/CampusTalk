@@ -17,12 +17,12 @@ try{
     $userid = $_SESSION['userID'];
 
     $pw = $_POST['new-password'];
-
+    $hashedpw = md5($pw);
     $query = "UPDATE Users SET userpassword = ? WHERE userID = ?;";
 
     // prepare query
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("si", $pw, $userID);
+    $stmt->bind_param("si", $hashedpw, $userID);
 
     $stmt->execute(); // execute obviously
 

@@ -60,7 +60,7 @@ try {
 
             $stmt->fetch();
 
-            if ($userpassword == $password) {
+            if ($userpassword == md5($password)) {
                 login($username, $userID, $isAdmin, $isEnabled);
                 $stmt->close();
                 $conn->close();

@@ -11,7 +11,7 @@ try {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
+    $hashedpw = md5($password);
 
     // Handle image upload separately
     if (isset ($_FILES['profileimage']) && $_FILES['profileimage']['error'] === UPLOAD_ERR_OK) {
@@ -39,7 +39,7 @@ try {
 
 
     // bind parameters
-    $stmt->bind_param("sssssb", $username, $firstname, $lastname, $email, $password, $image);
+    $stmt->bind_param("sssssb", $username, $firstname, $lastname, $email, $hashedpw, $image);
 
     // execute
     if (!$stmt->execute()) {

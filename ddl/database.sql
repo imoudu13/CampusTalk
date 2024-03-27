@@ -98,9 +98,7 @@ CREATE TABLE Likes(
 );
 
 
-INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('imoudu','Imoudu', 'Ibrahim', 'imoudu@gmail.com', 'thegoat@13', TRUE);
-INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('gavin','Gavin', 'Ashworth',  'gavin@gmail.com', 'milkyway#14', TRUE);
-INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('hadi','Hadi', 'Razmi',  'hadi@gmail.com', 'bestphotographer22', TRUE);
+INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   --password = thegoat@13
 
 -- These are some random values that were generated so that 
 INSERT INTO Users (username, firstname, lastname, email, userpassword, profileimage)

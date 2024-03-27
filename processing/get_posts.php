@@ -3,10 +3,21 @@ require_once('../includes/connection.php');
 session_start();
 function getPosts() {
     $conn = connectToDB();
+    //check if key is in get request
+    if (isset($_GET['key'])){
+        $key = $_GET['key'];
+    }
     // Check if 'department' is set in the GET request
     if (isset($_GET['department'])) {
         $department = $_GET['department'];
-        if ($department !== 'all') {
+        if($key !== 'none'){
+            $stmt = $conn->prepare("SELECT * FROM Posts JOIN Users ON Users.userID = Posts.userID WHERE title like ? or content like ? ORDER BY Posts.createdAt DESC LIMIT 1000;");
+            $searchTermLike = "%" . $key . "%";
+            $stmt->bind_param("ss", $searchTermLike,$searchTermLike);
+            $stmt->execute();
+            $result3 = $stmt->get_result();
+        }
+        else if ($department !== 'all') {
             $sql = "SELECT * FROM Posts JOIN Users ON Users.userID = Posts.userID WHERE departmentID = $department ORDER BY Posts.createdAt DESC LIMIT 1000;";
         } else {
             $sql = "SELECT * FROM Users JOIN Posts ON Users.userID = Posts.userID ORDER BY Posts.createdAt DESC LIMIT 1000;";
@@ -19,7 +30,13 @@ function getPosts() {
         echo "<script> console.log('error connecting'); </script>";
         die("Connection failed: " . $conn->connect_error);
     }
-    $result = $conn->query($sql);
+    if($key !== 'none'){
+        $result = $result3;
+    }
+    else{
+        $result = $conn->query($sql);
+    }
+
     $posts = [];
 
     if ($result->num_rows > 0) {

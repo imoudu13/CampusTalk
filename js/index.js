@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let urlParams = new URLSearchParams(window.location.search);
     let dataId = urlParams.get('dataId');
     if(dataId) {
-        displayPostsOnLoad(dataId);
+        displayPostsOnLoad(dataId, 'none');
     }else{
         let initialPostDepartment = "all"
-        displayPostsOnLoad(initialPostDepartment);
+        displayPostsOnLoad(initialPostDepartment, 'none');
     }
 
 
@@ -159,12 +159,12 @@ function toggleEnabled(userID, newIsEnabledValue){
         xhr.send(enabledData);
 
 }
-function displayPostsOnLoad(department){
+function displayPostsOnLoad(department, key){
     let postsContainer = document.querySelector('.posts-container');
     postsContainer.innerHTML = '';
     // Make an AJAX request to fetch posts data from get_posts.php
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', `../processing/get_posts.php?department=${department}`, true);
+    xhr.open('GET', `../processing/get_posts.php?department=${department}&key=${key}`, true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 400) {
             // Parse the JSON response. This will return an array of posts
@@ -300,7 +300,7 @@ function displayDepartmentsOnLoad(){
                 link.setAttribute('href','#');
                 link.textContent = department.departmentName;
                 link.onclick = function() {
-                    displayPostsOnLoad(this.getAttribute('data-id'));
+                    displayPostsOnLoad(this.getAttribute('data-id'), 'none');
                 };
 
 

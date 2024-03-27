@@ -44,7 +44,7 @@
                 if (isset ($_GET['postId'])) {
                     $postId = $_GET['postId'];
 
-                    $query = "SELECT * FROM Posts WHERE postID = ?;";
+                    $query = "SELECT * FROM Posts JOIN Users ON Users.userID = Posts.userID WHERE postID = ?;";
                     $commentsQuery = "SELECT * FROM Comments JOIN Users ON Users.userID = Comments.UserID WHERE postID = ?;";
 
                     try {
@@ -78,6 +78,12 @@
                         ?>
                         <!-- load hte post info -->
                         <div class="post-container" data-id="<?php echo $posts[0]['postID'] ?>">
+                            <div class="user-pic-username-container">
+                                <?php if ($posts[0]['profileimage']) { ?>
+                                    <img src="data:image/png;base64,<?php echo base64_encode($posts[0]['profileimage']); ?>" alt="User Profile Pic">
+                                <?php } ?>
+                                <h5 class="usernames"><?php echo htmlspecialchars($posts[0]['username']); ?></h5>
+                            </div>
                             <h2 class="post-title">
                                 <?php if (isset ($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == 1)) {
                                     echo "<div><button class=\"btn btn-primary edit-btn\" id=\"delete-post\">Delete Post</button></div>";

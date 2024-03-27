@@ -16,7 +16,7 @@ if (isset($_SESSION['userID'])){
 }  else{
     http_response_code(200); // Set HTTP response code to 200 so we dont catch the error improperly
     echo json_encode(array("error" => "You must login/signup to create a post"));
-    exit; // Stop further execution
+    exit; // Stop further execution to prevent errors from catching incorrectly
 }
 
 // get the referrer info so that if it is set we can send the user back to the previous page upon completion of processing
@@ -38,15 +38,15 @@ try{
         close_db($conn);
         http_response_code(200); // Set HTTP response code to 200
         echo json_encode(array("success" => "it seems", "redirect" => "$referrer"));
-        exit; // Stop further execution
+        exit; // Stop further execution to prevent errors from catching incorrectly
 
     } else {
         http_response_code(200); // Set HTTP response code to 200
         echo json_encode(array("error" => "You have been disabled by an admin and cannot comment on a post", "redirect" => $referrer));
-        exit; // Stop further execution
+        exit; // Stop further execution to prevent errors from catching incorrectly
     }
 }catch(Exception $e){
     http_response_code(200); // Set HTTP response code to 200
     echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
-    exit; // Stop further execution
+    exit; // Stop further execution to prevent errors from catching incorrectly
 }

@@ -166,9 +166,10 @@ function displayPostsOnLoad(department, key){
     let xhr = new XMLHttpRequest();
     xhr.open('GET', `../processing/get_posts.php?department=${department}&key=${key}`, true);
     xhr.onload = function() {
+        console.log(xhr);
+        console.log(xhr.responseText);
         if (xhr.status >= 200 && xhr.status < 400) {
             // Parse the JSON response. This will return an array of posts
-            console.log(xhr);
             let posts = JSON.parse(xhr.responseText);
             
             // Iterate through the posts and display them

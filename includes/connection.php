@@ -1,6 +1,6 @@
 <?php
 function connectToDB(){
-    return new mysqli("localhost", "77825776", "360@501Rex", "db_77825776");
+    return new mysqli("localhost", "root", "", "CampusTalk");
 }
 
 function close_db($conn) {

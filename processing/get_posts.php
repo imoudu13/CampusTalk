@@ -107,7 +107,7 @@ function getPosts() {
         close_db($conn);
         return $posts;
     } catch (Exception $e) {
-        return ['error' => $e->getMessage()];
+        return json_encode(array("error" => $e->getMessage()));
     }
 }
 

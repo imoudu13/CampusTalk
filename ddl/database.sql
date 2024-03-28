@@ -98,40 +98,7 @@ CREATE TABLE Likes(
 );
 
 
-INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   --password = thegoat@13
-
--- These are some random values that were generated so that 
-INSERT INTO Users (username, firstname, lastname, email, userpassword, profileimage)
-VALUES 
-    ('john_doe', 'John', 'Doe', 'john.doe@example.com', 'password123', NULL),
-    ('jane_smith', 'Jane', 'Smith', 'jane.smith@example.com', 'securepass', NULL),
-    ('alexander_wang', 'Alexander', 'Wang', 'alexander.wang@example.com', 'p@ssw0rd', NULL),
-    ('sarah_jackson', 'Sarah', 'Jackson', 'sarah.jackson@example.com', '123456', NULL),
-    ('michael_nguyen', 'Michael', 'Nguyen', 'michael.nguyen@example.com', 'password', NULL),
-    ('emily_garcia', 'Emily', 'Garcia', 'emily.garcia@example.com', 'letmein', NULL);
-    
-INSERT INTO Users (username, firstname, lastname, email, userpassword, profileimage)
-VALUES 
-    ('ryan_smith', 'Ryan', 'Smith', 'ryan.smith@example.com', 'password123', NULL),
-    ('amanda_johnson', 'Amanda', 'Johnson', 'amanda.johnson@example.com', 'securepass', NULL),
-    ('daniel_miller', 'Daniel', 'Miller', 'daniel.miller@example.com', 'p@ssw0rd', NULL),
-    ('olivia_brown', 'Olivia', 'Brown', 'olivia.brown@example.com', '123456', NULL),
-    ('william_davis', 'William', 'Davis', 'william.davis@example.com', 'password', NULL),
-    ('emily_rodriguez', 'Emily', 'Rodriguez', 'emily.rodriguez@example.com', 'letmein', NULL),
-    ('ethan_martinez', 'Ethan', 'Martinez', 'ethan.martinez@example.com', 'qwerty', NULL),
-    ('madison_hernandez', 'Madison', 'Hernandez', 'madison.hernandez@example.com', 'iloveyou', NULL),
-    ('mason_lopez', 'Mason', 'Lopez', 'mason.lopez@example.com', 'abc123', NULL),
-    ('ava_gonzalez', 'Ava', 'Gonzalez', 'ava.gonzalez@example.com', 'welcome', NULL),
-    ('noah_wilson', 'Noah', 'Wilson', 'noah.wilson@example.com', '123abc', NULL),
-    ('emma_anderson', 'Emma', 'Anderson', 'emma.anderson@example.com', 'password1', NULL),
-    ('liam_taylor', 'Liam', 'Taylor', 'liam.taylor@example.com', 'pass1234', NULL),
-    ('isabella_thomas', 'Isabella', 'Thomas', 'isabella.thomas@example.com', 'letmein123', NULL),
-    ('james_white', 'James', 'White', 'james.white@example.com', 'ilovecoding', NULL),
-    ('sophia_clark', 'Sophia', 'Clark', 'sophia.clark@example.com', 'hello123', NULL),
-    ('logan_hall', 'Logan', 'Hall', 'logan.hall@example.com', '12345678', NULL),
-    ('harper_james', 'Harper', 'James', 'harper.james@example.com', 'mypassword', NULL),
-    ('benjamin_scott', 'Benjamin', 'Scott', 'benjamin.scott@example.com', 'password1234', NULL),
-    ('grace_green', 'Grace', 'Green', 'grace.green@example.com', 'password12345', NULL);
+INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   -- password = thegoat@13
 
 
 INSERT INTO Department (name, shorthand, description) 
@@ -148,30 +115,3 @@ VALUES
 	('Nursing', 'NRSG', 'Can I take your blood?'),
 	('Engineering', 'ENGR', 'We bring solutions to real world problems');
 	
-INSERT INTO UserDept (userID, departmentID) VALUES (1, 1);
-INSERT INTO UserDept (userID, departmentID) VALUES (2, 2);
-INSERT INTO UserDept (userID, departmentID) VALUES (3, 3);
-INSERT INTO UserDept (userID, departmentID) VALUES (4, 4);
-INSERT INTO UserDept (userID, departmentID) VALUES (5, 5);
-INSERT INTO UserDept (userID, departmentID) VALUES (6, 6);
-INSERT INTO UserDept (userID, departmentID) VALUES (7, 7);
-INSERT INTO UserDept (userID, departmentID) VALUES (8, 8);
-INSERT INTO UserDept (userID, departmentID) VALUES (9, 9);
-INSERT INTO UserDept (userID, departmentID) VALUES (10, 10);
-INSERT INTO UserDept (userID, departmentID) VALUES (11, 11);
-INSERT INTO UserDept (userID, departmentID) VALUES (12, 1);
-INSERT INTO UserDept (userID, departmentID) VALUES (13, 2);
-INSERT INTO UserDept (userID, departmentID) VALUES (14, 3);
-INSERT INTO UserDept (userID, departmentID) VALUES (15, 4);
-INSERT INTO UserDept (userID, departmentID) VALUES (16, 5);
-INSERT INTO UserDept (userID, departmentID) VALUES (17, 6);
-INSERT INTO UserDept (userID, departmentID) VALUES (18, 7);
-INSERT INTO UserDept (userID, departmentID) VALUES (19, 8);
-INSERT INTO UserDept (userID, departmentID) VALUES (20, 9);
-INSERT INTO UserDept (userID, departmentID) VALUES (21, 10);
-INSERT INTO UserDept (userID, departmentID) VALUES (22, 11);
-INSERT INTO UserDept (userID, departmentID) VALUES (23, 1);
-INSERT INTO UserDept (userID, departmentID) VALUES (24, 2);
-INSERT INTO UserDept (userID, departmentID) VALUES (25, 3);
-INSERT INTO UserDept (userID, departmentID) VALUES (26, 4);
-

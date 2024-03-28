@@ -100,3 +100,18 @@ CREATE TABLE Likes(
 
 INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   -- password = thegoat@13
 
+INSERT INTO Department (name, shorthand, description) 
+VALUES 
+	('Computer Science', 'COSC', 'We make the computer compute things'),
+	('Data Science', 'DATA', 'We analyze and provide meaningful information about large data sets'),
+	('Mathematics', 'MATH', 'We compute things ourselves'),
+	('Statistics', 'STAT', 'We figure out the probability of things happening'),
+	('Biology', 'BIOL', 'Something about blood, cells, animals, etc.'),
+	('Chemistry', 'CHEM', 'How much benzene can we add to this before it goes boom?'),
+	('Physics', 'PHYS', 'I can find out Kinematics, Velocity, Vectors etc.'),
+	('Managemnet', 'MGMT', 'We manage things'),
+	('Health and Exercise Science', 'HES', 'IDK, something about being in good shape.'),
+	('Nursing', 'NRSG', 'Can I take your blood?'),
+	('Engineering', 'ENGR', 'We bring solutions to real world problems');
+
+

@@ -43,6 +43,7 @@ function handleAdminSearch(query, type) {
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
+                console.log(xhr);
                 let responseData = JSON.parse(xhr.responseText);
                 displayUsersModal(responseData.users);
             } else {

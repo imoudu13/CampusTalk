@@ -48,7 +48,7 @@ function getPosts() {
                 $postId = $row['postID'];
                 // Find department from department id
                 $deptId = $row['departmentID'];
-                $sql1 = "SELECT * FROM department WHERE departmentID = " . $deptId;
+                $sql1 = "SELECT * FROM Department WHERE departmentID = " . $deptId;
                 $result1 = $conn->query($sql1);
 
                 $departmentName = '';
@@ -65,7 +65,7 @@ function getPosts() {
                     $userId = $_SESSION['userID'];
 
                     // Check if the like already exists in the database
-                    $stmt1 = $conn->prepare("SELECT * FROM likes WHERE userId = ? AND postId = ?");
+                    $stmt1 = $conn->prepare("SELECT * FROM Likes WHERE userId = ? AND postId = ?");
                     $stmt1->bind_param("ii", $userId, $postId);
                     $stmt1->execute();
                     $result1 = $stmt1->get_result();
@@ -76,7 +76,7 @@ function getPosts() {
                     }
                 }
                 //get the number of likes on the post
-                $stmt2 = $conn->prepare("SELECT * FROM LIKES WHERE postID = ?");
+                $stmt2 = $conn->prepare("SELECT * FROM Likes WHERE postID = ?");
                 $stmt2->bind_param("i",$postId);
                 $stmt2->execute();
                 $result2 = $stmt2->get_result();

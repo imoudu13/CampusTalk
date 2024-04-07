@@ -88,6 +88,9 @@
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
+                <div class="card-body">
+                    
+                </div>
             </div>
         </div>
         <?php } ?>

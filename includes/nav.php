@@ -46,6 +46,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
 
                 <?php if (isset ($_SESSION['username'])) { ?>
                     <!-- Dropdown for logged-in users -->
+                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#join-course" id="joincourse">Join a Course</button>
                     <?php if ($isIndexPage) { ?>
                         <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#createPostModal"
                             id="createpost">Create Post</button>

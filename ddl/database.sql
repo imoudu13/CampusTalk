@@ -36,7 +36,7 @@ CREATE TABLE Department (
 -- Table for storing class sections within subgroups
 -- Think COSC 101, COSC 111 etc.
 CREATE TABLE Course (
-    courseID INT PRIMARY KEY,
+    courseID INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     departmentID INT,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -50,11 +50,9 @@ CREATE TABLE Posts (
     content TEXT NOT NULL,
     userID INT,
     departmentID INT NOT NULL,
-    courseID INT,
     postImage LONGBLOB, -- this stores the image in our system
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
-    FOREIGN KEY (courseID) REFERENCES Course(courseID) ON DELETE CASCADE,
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID) ON DELETE CASCADE
 );
 

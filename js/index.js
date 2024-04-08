@@ -416,6 +416,7 @@ function displayCourses(courses){
 
         join.addEventListener('click', function(){
             joinCourse(course.courseID);
+            courseContainer.style.display = 'none';
         });   //event listener for joining
 
         courseContainer.appendChild(join);

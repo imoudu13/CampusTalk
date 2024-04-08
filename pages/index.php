@@ -69,30 +69,66 @@
             </div>
         <?php } ?>
 
-        <?php if (!isset($_SESSION['isAdmin']) || ($_SESSION['isAdmin'] === 0)) { ?>
-            
-        <!-- Join course bar -->
-        <div class="right">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Join a Course</h5>
-                </div>
-                <div class="card-body">
-                    <form action="javascript:void(0);" method="POST" id="join-course-form" class="d-flex flex-column">
-                        <div class="mb-3">
-                            <label for="course-search-bar" class="form-label">Enter the name of the course</label>
+        <?php if (isset($_SESSION['userID']) && ($_SESSION['isAdmin'] === 0)) { ?>
+
+            <!-- Join course bar -->
+            <div class="right">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Join a Course</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="javascript:void(0);" method="POST" id="join-course-form" class="d-flex flex-column">
+                            <div class="mb-3">
+                                <label for="course-search-bar" class="form-label">Search a Course</label>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" id="course-search-bar" type="search" placeholder="Search"
+                                    name="courseName">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                    <?php
+                    $userid = $_SESSION['userID'];
+                    try {
+                        $query = "SELECT uc.courseID, name FROM UserCourse AS uc JOIN Course AS c ON uc.courseID = c.courseID WHERE uc.userID = ?;";
+
+                        $conn = connectToDB();
+                        $stmt = $conn->prepare($query);
+                        $stmt->bind_param("i", $userid);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $coursesResult = $result->fetch_all(MYSQLI_ASSOC);
+                    } catch (Exception $e) {
+                        // Handle exception
+                        echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
+                    }
+                    ?>
+
+                    <?php if (count($coursesResult) > 0) { ?>
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Your Courses</h5>
                         </div>
-                        <div class="mb-3">
-                            <input class="form-control" id="course-search-bar" type="search" placeholder="Search" name="courseName">
+                        <!-- Display the courses this user is a part of -->
+                        <div class="card-body">
+
+                            <?php
+                            foreach ($coursesResult as $course) {
+                                // access individual comment data
+                                $cid = $course['courseID'];
+                                $cname = $course['name'];
+                                // output the comment data
+                                ?>
+                                <div class="course-container">
+                                    <a href="../pages/course.php?cid=<?php echo $cid; ?>" class="course-link"> <?php echo $cname; ?> </a>
+                                </div>
+                                <?php
+                            } ?>
                         </div>
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
-                <div class="card-body">
-                    
+                    <?php } ?>
                 </div>
             </div>
-        </div>
         <?php } ?>
     </main>
 

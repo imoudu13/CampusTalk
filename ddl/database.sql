@@ -95,7 +95,14 @@ CREATE TABLE Likes(
     FOREIGN KEY (postID) REFERENCES Posts(postID) ON DELETE CASCADE
 );
 
-
+-- This table is for the messages within a course chat
+CREATE TABLE CourseMessage(
+    commentID INT PRIMARY KEY AUTO_INCREMENT,
+    title TEXT NOT NULL,
+    userID INT,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE
+);
 INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   -- password = thegoat@13
 
 INSERT INTO Department (name, shorthand, description) 

@@ -7,9 +7,6 @@ DROP TABLE IF EXISTS Course;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Department;
 
-
-
-
 -- Table for storing user information
 CREATE TABLE Users (
     userID INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,10 +95,12 @@ CREATE TABLE Likes(
 -- This table is for the messages within a course chat
 CREATE TABLE CourseMessage(
     commentID INT PRIMARY KEY AUTO_INCREMENT,
-    title TEXT NOT NULL,
-    userID INT,
+    content TEXT NOT NULL,
+    userID INT NOT NULL,
+    courseID INT NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE
+    FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
+    FOREIGN KEY (courseID) REFERENCES Course(courseID) ON DELETE CASCADE
 );
 INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   -- password = thegoat@13
 

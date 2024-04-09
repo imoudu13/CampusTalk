@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.left').classList.toggle('collapsed');
         document.querySelector('.right').classList.toggle('collapsed');
     });
-    document.addEventListener('submit', function(){
+
+    const form = document.getElementById('join-course-form');
+    form.addEventListener('submit', function () {
         handleCourseSearch();
-    })
+    });
 
 
     //display most recent posts on page load. This is for registered and non-registered users
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let dataId = urlParams.get('dataId');
     //display hot topics if user clicked on hot topic button
     let topic = urlParams.get('topic');
-    if (topic){
+    if (topic) {
         displayPostsOnLoad('all', 'none', true);
     }
     else if (dataId) {
@@ -396,7 +398,7 @@ function handleCourseSearch() {
 
     xhr.send(params);
 }
-function displayCourses(courses){
+function displayCourses(courses) {
     const modalBody = document.getElementById('course-modal-body');
 
     // Clear previous content
@@ -419,11 +421,11 @@ function displayCourses(courses){
         // If enabled, display disable button
         const join = document.createElement('button');
         join.textContent = 'join';
-        join.classList.add('btn', 'btn-sm','btn-success');
+        join.classList.add('btn', 'btn-sm', 'btn-success');
         join.style.marginLeft = '10px';
         join.setAttribute('data-course-id', course.courseID);
 
-        join.addEventListener('click', function(){
+        join.addEventListener('click', function () {
             joinCourse(course.courseID);
             courseContainer.style.display = 'none';
         });   //event listener for joining
@@ -437,7 +439,7 @@ function displayCourses(courses){
     const courseModal = new bootstrap.Modal(document.getElementById('course-modal'));
     courseModal.show();
 }
-function joinCourse(cid){
+function joinCourse(cid) {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '../processing/joincourse.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

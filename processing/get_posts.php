@@ -98,6 +98,14 @@ function getPosts() {
                 ];
                 $posts[] = $post;
 
+                // Check if 'isHotTopic' parameter exists and get its value
+                $isHotTopic = $_GET['isHotTopic'];
+
+                // Sort posts based on 'numLikes' if 'isHotTopic' is true
+                if ($isHotTopic === 'true') {
+                    usort($posts, 'comparePosts');
+                }
+
                 //check if the post has been liked by the user
 
             }
@@ -112,3 +120,7 @@ function getPosts() {
 
 //echo the json encoded string
 echo json_encode(getPosts());
+// Function to compare posts based on 'numLikes' for sorting
+function comparePosts($a, $b) {
+    return $b['numLikes'] - $a['numLikes'];
+}

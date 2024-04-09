@@ -6,10 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('submit', function(){
         handleCourseSearch();
     })
+
+
     //display most recent posts on page load. This is for registered and non-registered users
     let urlParams = new URLSearchParams(window.location.search);
     let dataId = urlParams.get('dataId');
-    if (dataId) {
+    //display hot topics if user clicked on hot topic button
+    let topic = urlParams.get('topic');
+    if (topic){
+        displayPostsOnLoad('all', 'none', true);
+    }
+    else if (dataId) {
         displayPostsOnLoad(dataId, 'none');
     } else {
         let initialPostDepartment = "all"
@@ -163,12 +170,14 @@ function toggleEnabled(userID, newIsEnabledValue) {
     xhr.send(enabledData);
 
 }
-function displayPostsOnLoad(department, key) {
+function displayPostsOnLoad(department, key, isHotTopic) {
+    //this is for loading posts based on like count
+    if (isHotTopic == null) isHotTopic = false;
     let postsContainer = document.querySelector('.posts-container');
     postsContainer.innerHTML = '';
     // Make an AJAX request to fetch posts data from get_posts.php
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', `../processing/get_posts.php?department=${department}&key=${key}`, true);
+    xhr.open('GET', `../processing/get_posts.php?department=${department}&key=${key}&isHotTopic=${isHotTopic}`, true);
     xhr.onload = function () {
         if (xhr.status >= 200 && xhr.status < 400) {
             // Parse the JSON response. This will return an array of posts

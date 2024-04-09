@@ -30,7 +30,7 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
                     <!--   later we will add a variable here that will cause index.php to load posts based on likes -->
-                    <a class="nav-link" href="../pages/index.php">Hot Topics</a>
+                    <a class="nav-link" href="../pages/index.php?topic=Hot">Hot Topics</a>
                 </li>
                 <li class="nav-item">
                     <!--   later we will add a variable here that will cause index.php to load posts randomly -->

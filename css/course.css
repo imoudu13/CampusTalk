@@ -184,3 +184,22 @@ main {
     height: 8em;
     border-radius: 8em;
 }
+
+#message-input-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f0f0f0; /* Set background color as needed */
+    padding: 10px; /* Add padding as needed */
+    box-sizing: border-box;
+}
+
+/* Optional: You can add additional styling for the textarea and button */
+.message-input {
+    width: calc(100% - 100px); /* Adjust width as needed */
+    margin-right: 10px; /* Add margin between textarea and button */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Disable textarea resizing */
+}

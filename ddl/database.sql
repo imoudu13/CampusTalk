@@ -102,6 +102,7 @@ CREATE TABLE CourseMessage(
     FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
     FOREIGN KEY (courseID) REFERENCES Course(courseID) ON DELETE CASCADE
 );
+
 INSERT INTO Users(username, firstname, lastname, email, userpassword, isAdmin) VALUES('admin', 'Admin', 'User', 'adminuser@gmail.com', 'b2d4310caf97cee4c7929241380aae57', TRUE);   -- password = thegoat@13
 
 INSERT INTO Department (name, shorthand, description) 

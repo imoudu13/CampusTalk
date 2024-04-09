@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const form = document.getElementById('join-course-form');
-    form.addEventListener('submit', function () {
-        handleCourseSearch();
-    });
+    if(form){
+        form.addEventListener('submit', function () {
+            handleCourseSearch();
+        });
+    }
 
 
     //display most recent posts on page load. This is for registered and non-registered users

@@ -157,6 +157,13 @@ main {
         /* Semi-transparent white background */
         z-index: 9999;
         /* Ensure it's above other content */
+        top: auto;
+        bottom: 0;
+
+        width: 150px;
+    }
+    .right.collapsed{
+        right: 0px;
     }
 
     #toggle-columns {

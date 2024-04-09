@@ -5,6 +5,7 @@
 
 <head>
     <link href="../css/course.css" rel="stylesheet">
+    <script src="../js/course.js"></script>
 </head>
 
 <body>
@@ -80,6 +81,10 @@
                     ?>
                     <div class="comment-container" data-id="<?php echo $mid; ?>">
                         <h5 class="username">
+                            <?php if ($message['profileimage']) { ?>
+                                <img src="data:image/png;base64,<?php echo base64_encode($message['profileimage']); ?>"
+                                    alt="User Profile Pic">
+                            <?php } ?>
                             <?php echo $username; ?>
                         </h5>
                         <p class="comment-text">

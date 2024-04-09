@@ -213,3 +213,27 @@ main {
     cursor: pointer;
     align-self: center; /* Center vertically */
 }
+.username img {
+    margin-right: 1em;
+    width: 2em;
+    height: 2em;
+    border-radius: 2em;
+    margin-left: 10px;
+    /* Add space between h5 and image */
+}
+.comment-container{
+    padding: 1em;
+    border-radius: 1em;
+    border: 1px solid black;
+    margin: 1em;
+}
+.main-content{
+    margin-right: 20em;
+}
+.course-message-container{
+    height: 80%; 
+    overflow-y: auto;
+}
+.course-message-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for webkit browsers */
+}

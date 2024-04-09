@@ -94,6 +94,7 @@
 
         <div id="message-input-container">
             <textarea class="message-input" id="message-input-id" placeholder="Type your message"></textarea>
+            <button id="send-message">Send</button>
         </div>
 
     </main>

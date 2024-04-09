@@ -192,6 +192,7 @@ main {
     background-color: #f0f0f0; /* Set background color as needed */
     padding: 10px; /* Add padding as needed */
     box-sizing: border-box;
+    display: flex;
 }
 
 /* Optional: You can add additional styling for the textarea and button */
@@ -202,4 +203,13 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: none; /* Disable textarea resizing */
+}
+#send-message{
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff; /* Adjust button background color */
+    color: #fff; /* Adjust button text color */
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center; /* Center vertically */
 }

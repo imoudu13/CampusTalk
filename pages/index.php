@@ -78,7 +78,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="departmentSelect" class="form-label" id="departmentLabel">Select a
+                                    <label for="departmentSelect" class="form-label" id="departmentLabel">Select
                                         Department</label>
                                     <select class="form-select" id="departmentSelect" name="department">
                                         <?php

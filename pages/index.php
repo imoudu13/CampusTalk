@@ -65,6 +65,47 @@
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
                     </div>
+                    <div class="card-body">
+                        <form action="../processing/addcourse.php" method="POST" id="add-course" class="d-flex flex-column">
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <label for="course-to-add" class="form-label" id="course-add-label">Enter
+                                        Course Name</label>
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" id="course-to-add" type="search" placeholder="Search"
+                                        name="course-to-add" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="departmentSelect" class="form-label" id="departmentLabel">Select a
+                                        Department</label>
+                                    <select class="form-select" id="departmentSelect" name="department">
+                                        <?php
+                                        $conn = connectToDB();
+                                        // Check connection
+                                        if ($conn->connect_error) {
+                                            die("Connection failed: " . $conn->connect_error);
+                                        }
+                                        $sql = "SELECT * FROM Department";
+                                        $result = $conn->query($sql);
+                                        $departments = [];
+
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $departmentId = $row['departmentID'];
+                                                $departmentName = $row['name'];
+                                                echo '<option value="' . $departmentId . '">' . $departmentName . '</option>';
+                                            }
+                                        }
+                                        close_db($conn);
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Course</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         <?php } ?>
@@ -121,7 +162,9 @@
                                 // output the comment data
                                 ?>
                                 <div class="course-container">
-                                    <a href="../pages/course.php?cid=<?php echo $cid; ?>" class="course-link"> <?php echo $cname; ?> </a>
+                                    <a href="../pages/course.php?cid=<?php echo $cid; ?>" class="course-link">
+                                        <?php echo $cname; ?>
+                                    </a>
                                 </div>
                                 <?php
                             } ?>

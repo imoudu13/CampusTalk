@@ -4,14 +4,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.right').classList.toggle('collapsed');
     });
 
-    const form = document.getElementById('join-course-form');
-    if(form){
-        form.addEventListener('submit', function () {
-            handleCourseSearch();
+    const joinForm = document.getElementById('join-course-form');
+    if (joinForm) {
+        joinForm.addEventListener('submit', function () {
+            handleCourseSearch(false);
         });
     }
 
+    const removeForm = document.getElementById('remove-course');
 
+    if (removeForm) {
+        removeForm.addEventListener('submit', function () {
+            handleCourseSearch(true);
+        });
+    }
     //display most recent posts on page load. This is for registered and non-registered users
     let urlParams = new URLSearchParams(window.location.search);
     let dataId = urlParams.get('dataId');
@@ -378,9 +384,11 @@ function unhighlightLikeButton(postId) {
 }
 
 // this is for searching a post
-function handleCourseSearch() {
-    let query = document.getElementById('course-search-bar').value;
-    document.getElementById('course-search-bar').style.removeProperty('border-color');
+function handleCourseSearch(remove) {
+    let addSearchBar = document.getElementById('course-search-bar');
+    let removeSearchBar = document.getElementById('course-to-remove');
+
+    let query = addSearchBar == null ? removeSearchBar.value : addSearchBar.value;
 
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '../processing/searchcourse.php', true);
@@ -390,7 +398,9 @@ function handleCourseSearch() {
         if (xhr.status >= 200 && xhr.status < 400) {
             console.log(xhr);
             let responseData = JSON.parse(xhr.responseText);
-            displayCourses(responseData.courses);
+
+            displayCourses(responseData.courses, remove);
+
         } else {
             console.log('Error searching courses:', xhr.statusText);
         }
@@ -400,7 +410,7 @@ function handleCourseSearch() {
 
     xhr.send(params);
 }
-function displayCourses(courses) {
+function displayCourses(courses, remove) {
     const modalBody = document.getElementById('course-modal-body');
 
     // Clear previous content
@@ -421,18 +431,33 @@ function displayCourses(courses) {
 
         // Check if the user is enabled
         // If enabled, display disable button
-        const join = document.createElement('button');
-        join.textContent = 'join';
-        join.classList.add('btn', 'btn-sm', 'btn-success');
-        join.style.marginLeft = '10px';
-        join.setAttribute('data-course-id', course.courseID);
+        if (!remove) {
+            const join = document.createElement('button');
+            join.textContent = 'join';
+            join.classList.add('btn', 'btn-sm', 'btn-success');
+            join.style.marginLeft = '10px';
+            join.setAttribute('data-course-id', course.courseID);
 
-        join.addEventListener('click', function () {
-            joinCourse(course.courseID);
-            courseContainer.style.display = 'none';
-        });   //event listener for joining
+            join.addEventListener('click', function () {
+                joinCourse(course.courseID);
+                courseContainer.style.display = 'none';
+            });   //event listener for joining
 
-        courseContainer.appendChild(join);
+            courseContainer.appendChild(join);
+        } else {
+            const remove = document.createElement('button');
+            remove.textContent = 'remove';
+            remove.classList.add('btn', 'btn-sm', 'btn-danger');
+            remove.style.marginLeft = '10px';
+            remove.setAttribute('data-course-id', course.courseID);
+
+            remove.addEventListener('click', function () {
+                removeCourse(course.courseID);
+                courseContainer.style.display = 'none';
+            });   //event listener for removing courses
+
+            courseContainer.appendChild(remove);
+        }
 
         modalBody.appendChild(courseContainer);
     });
@@ -452,6 +477,25 @@ function joinCourse(cid) {
             let responseData = JSON.parse(xhr.responseText);
         } else {
             console.log('Error joining courses:', xhr.statusText);
+        }
+    };
+
+    let params = 'cid=' + encodeURIComponent(cid);
+
+    xhr.send(params);
+}
+function removeCourse(cid) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '../processing/removecourse.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 400) {
+            console.log(xhr);
+            let responseData = JSON.parse(xhr.responseText);
+            console.log(responseData);
+        } else {
+            console.log('Error removing courses:', xhr.statusText);
         }
     };
 

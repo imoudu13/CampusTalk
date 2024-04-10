@@ -73,7 +73,7 @@
                                         Course Name</label>
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" id="course-to-add" type="search" placeholder="Search"
+                                    <input class="form-control" id="course-to-add" type="search" placeholder="Name"
                                         name="course-to-add" required>
                                 </div>
 
@@ -103,76 +103,94 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Course</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
 
-        <?php if (isset($_SESSION['userID']) && ($_SESSION['isAdmin'] === 0)) { ?>
-
-            <!-- Join course bar -->
-            <div class="right">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Join a Course</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="javascript:void(0);" method="POST" id="join-course-form" class="d-flex flex-column">
-                            <div class="mb-3">
-                                <label for="course-search-bar" class="form-label">Search a Course</label>
-                            </div>
-                            <div class="mb-3">
-                                <input class="form-control" id="course-search-bar" type="search" placeholder="Search"
-                                    name="courseName">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </form>
-                    </div>
-                    <?php
-                    $userid = $_SESSION['userID'];
-                    try {
-                        $query = "SELECT uc.courseID, name FROM UserCourse AS uc JOIN Course AS c ON uc.courseID = c.courseID WHERE uc.userID = ?;";
-
-                        $conn = connectToDB();
-                        $stmt = $conn->prepare($query);
-                        $stmt->bind_param("i", $userid);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $coursesResult = $result->fetch_all(MYSQLI_ASSOC);
-                    } catch (Exception $e) {
-                        // Handle exception
-                        echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
-                    }
-                    ?>
-
-                    <?php if (count($coursesResult) > 0) { ?>
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Your Courses</h5>
-                        </div>
-                        <!-- Display the courses this user is a part of -->
+                        <!-- This form is for removing courses -->
                         <div class="card-body">
-
-                            <?php
-                            foreach ($coursesResult as $course) {
-                                // access individual comment data
-                                $cid = $course['courseID'];
-                                $cname = $course['name'];
-                                // output the comment data
-                                ?>
-                                <div class="course-container">
-                                    <a href="../pages/course.php?cid=<?php echo $cid; ?>" class="course-link">
-                                        <?php echo $cname; ?>
-                                    </a>
+                            <form action="javascript:void(0);" method="POST" id="remove-course"
+                                class="d-flex flex-column">
+                                <div class="mb-3">
+                                    <div class="mb-3">
+                                        <label for="course-to-remove" class="form-label" id="course-remove-label">Remove
+                                            Course</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" id="course-to-remove" type="search" placeholder="Search Course"
+                                            name="course-to-remove" required>
+                                    </div>
                                 </div>
-                                <?php
-                            } ?>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
                         </div>
-                    <?php } ?>
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
+
+            <?php if (isset($_SESSION['userID']) && ($_SESSION['isAdmin'] === 0)) { ?>
+
+                <!-- Join course bar -->
+                <div class="right">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Join a Course</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="javascript:void(0);" method="POST" id="join-course-form"
+                                class="d-flex flex-column">
+                                <div class="mb-3">
+                                    <label for="course-search-bar" class="form-label">Search a Course</label>
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" id="course-search-bar" type="search" placeholder="Search"
+                                        name="courseName">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                        <?php
+                        $userid = $_SESSION['userID'];
+                        try {
+                            $query = "SELECT uc.courseID, name FROM UserCourse AS uc JOIN Course AS c ON uc.courseID = c.courseID WHERE uc.userID = ?;";
+
+                            $conn = connectToDB();
+                            $stmt = $conn->prepare($query);
+                            $stmt->bind_param("i", $userid);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $coursesResult = $result->fetch_all(MYSQLI_ASSOC);
+                        } catch (Exception $e) {
+                            // Handle exception
+                            echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
+                        }
+                        ?>
+
+                        <?php if (count($coursesResult) > 0) { ?>
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Your Courses</h5>
+                            </div>
+                            <!-- Display the courses this user is a part of -->
+                            <div class="card-body">
+
+                                <?php
+                                foreach ($coursesResult as $course) {
+                                    // access individual comment data
+                                    $cid = $course['courseID'];
+                                    $cname = $course['name'];
+                                    // output the comment data
+                                    ?>
+                                    <div class="course-container">
+                                        <a href="../pages/course.php?cid=<?php echo $cid; ?>" class="course-link">
+                                            <?php echo $cname; ?>
+                                        </a>
+                                    </div>
+                                    <?php
+                                } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
     </main>
 
     <!-- Modal to display users when admin searches for them -->
@@ -193,7 +211,7 @@
         </div>
     </div>
 
-    <!-- Modal to display courses when user searches for them -->
+    <!-- Modal to display courses when user searches for them or when admin wants to remove -->
     <div class="modal fade" id="course-modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

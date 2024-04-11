@@ -63,7 +63,7 @@
         </div>
 
         <div class="main-content">
-            <p id="course-name"> <?php echo $name[0]['name']; ?> </p>
+        <p id="course-name"> <?php echo $name[0]['name']; ?> </p>
             <div class="course-message-container">
                 <?php
                 foreach ($messages as $message) {

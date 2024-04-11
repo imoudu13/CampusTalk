@@ -231,14 +231,14 @@ main {
     height: 100%;
 }
 .course-message-container{
-    height: 80%; 
+    height: 60%; 
     overflow-y: auto;
     margin-bottom: 8em;
 }
 .course-message-container::-webkit-scrollbar {
     display: none; /* Hide scrollbar for webkit browsers */
 }
-#course-name{
+#course-name{   
     font-size: 5em;
     text-align: center;
 }

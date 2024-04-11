@@ -82,8 +82,6 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                 <?php
                 $userid = $_SESSION['userID'];
 
-                echo "<script>console.log('UserID:', $userid);</script>";
-
                 $query = "SELECT * FROM Users WHERE userID = ?;";
                 $conn = connectToDB();
                 $stmt = $conn->prepare($query);

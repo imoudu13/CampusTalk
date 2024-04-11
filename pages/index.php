@@ -78,8 +78,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="departmentSelect" class="form-label" id="departmentLabel">Select
-                                Department</label>
+                            <label for="departmentSelect" class="form-label" id="departmentLabel">Select Department</label>
                             <select class="form-select" id="departmentSelect" name="department" aria-label="Department Selection">
                                 <?php
                                 $conn = connectToDB();
@@ -105,15 +104,14 @@
                     </div>
                     <button type="submit" class="btn btn-primary" aria-label="Add Course Button">Add</button>
                 </form>
-
-                <!-- This form is for removing courses -->
-                <div class="card-body">
+            </div>
+            <!-- This form is for removing courses -->
+            <div class="card-body">
                     <form action="javascript:void(0);" method="POST" id="remove-course"
                           class="d-flex flex-column">
                         <div class="mb-3">
                             <div class="mb-3">
-                                <label for="course-to-remove" class="form-label" id="course-remove-label">Remove
-                                    Course</label>
+                                <label for="course-to-remove" class="form-label" id="course-remove-label">Remove Course</label>
                             </div>
                             <div class="mb-3">
                                 <input class="form-control" id="course-to-remove" type="search" placeholder="Search Course"
@@ -123,7 +121,6 @@
                         <button type="submit" class="btn btn-primary" aria-label="Search Course Button">Search</button>
                     </form>
                 </div>
-            </div>
         </div>
         <?php } ?>
 

@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let cid = getParameterByName('cid');
 
     // getMessages(cid);
-
+    const messageContainer1 = document.querySelector(".course-message-container");
+    messageContainer1.scrollTop = messageContainer1.scrollHeight;
     // the shit for sending a message
     document.getElementById('send-message').addEventListener('click', function () {
         let content = getText();

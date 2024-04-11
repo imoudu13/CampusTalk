@@ -21,17 +21,6 @@
 
                 </div>
             </div>
-            <div class="left-sidebar-topic sidebar-border-top" aria-label="Help Section">
-                <p class="sidebar-item left-item topic-header">
-                    <a href="#">Help</a>
-                </p>
-                <p class="sidebar-item left-item ">
-                    <a href="#">Report A Problem</a>
-                </p>
-                <p class="sidebar-item left-item ">
-                    <a href="#">Contact Us</a>
-                </p>
-            </div>
         </div>
     </div>
     <!--        <a href="Post.html"> </a>-->

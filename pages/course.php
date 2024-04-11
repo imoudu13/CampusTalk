@@ -23,8 +23,9 @@
     $userid = $_SESSION['userID'];
 
     try {
-        $query = "SELECT commentID, content, cm.userID, cm.createdAt, username, profileimage FROM CourseMessage AS cm JOIN Users AS u ON cm.userID = u.userID WHERE courseID = ?;";
+        $query = "SELECT commentID, content, cm.userID, cm.createdAt, username, profileimage FROM CourseMessage AS cm JOIN Users AS u ON cm.userID = u.userID WHERE cm.courseID = ?;";
         $conn = connectToDB();
+
 
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $cid);
@@ -33,6 +34,15 @@
         $result = $stmt->get_result();
         $messages = $result->fetch_all(MYSQLI_ASSOC);
 
+        $getName = "SELECT name FROM Course WHERE courseID = ?;";
+        $stmt = $conn->prepare($getName);
+        $stmt->bind_param("i", $cid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $name = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt -> close();
+        $conn -> close();
     } catch (Exception $e) {
         // Handle exception
         echo json_encode(array("error" => $e->getMessage(), "redirect" => "$referrer"));
@@ -45,31 +55,15 @@
                     <p class="sidebar-item left-item">
                         <a href="index.php">Home</a>
                     </p>
-                </div>
-                <div class="left-sidebar-topic sidebar-border-top">
-                    <p class="topic-header">
-                        <!-- TODO: Add name of course here -->
-                        <span>Department</span>
-                    </p>
-                    <div id="department-container">
-
-                    </div>
-                </div>
-                <div class="left-sidebar-topic sidebar-border-top">
-                    <p class="sidebar-item left-item topic-header">
-                        <a href="#">Help</a>
-                    </p>
-                    <p class="sidebar-item left-item ">
-                        <a href="#">Report A Problem</a>
-                    </p>
-                    <p class="sidebar-item left-item ">
-                        <a href="#">Contact Us</a>
+                    <p class="sidebar-item left-item">
+                        <a href="../processing/leavecourse.php?cid=<?php echo $cid; ?>">Leave Course</a>
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="main-content">
+            <p id="course-name"> <?php echo $name[0]['name']; ?> </p>
             <div class="course-message-container">
                 <?php
                 foreach ($messages as $message) {
@@ -96,12 +90,10 @@
                 ?>
             </div>
         </div>
-
         <div id="message-input-container">
             <textarea class="message-input" id="message-input-id" placeholder="Type your message"></textarea>
             <button id="send-message">Send</button>
         </div>
-
     </main>
 </body>
 

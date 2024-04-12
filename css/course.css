@@ -168,6 +168,7 @@ main {
     border-radius: 4px;
     cursor: pointer;
     align-self: center; /* Center vertically */
+    margin-left: 1em;
 }
 .username img {
     margin-right: 1em;
@@ -200,7 +201,7 @@ main {
 .course-message-container::-webkit-scrollbar {
     display: none; /* Hide scrollbar for webkit browsers */
 }
-#course-name{   
+#course-name{
     font-size: 2em;
     text-align: center;
 

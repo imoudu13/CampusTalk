@@ -32,10 +32,6 @@ $isIndexPage = strpos($_SERVER['REQUEST_URI'], 'index.php') !== false;
                     <!--   later we will add a variable here that will cause index.php to load posts based on likes -->
                     <a class="nav-link" href="../pages/index.php?topic=Hot">Hot Topics</a>
                 </li>
-                <li class="nav-item">
-                    <!--   later we will add a variable here that will cause index.php to load posts randomly -->
-                    <a class="nav-link" href="../pages/index.php">Random</a>
-                </li>
             </ul>
             <div class="d-flex">
                 <?php if ($isIndexPage) { ?>

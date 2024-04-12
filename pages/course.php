@@ -49,21 +49,24 @@
     }
     ?>
     <main>
-        <div class="left">
-            <div class="sidebar-content">
-                <div class="left-sidebar-topic">
-                    <p class="sidebar-item left-item">
-                        <a href="index.php">Home</a>
-                    </p>
-                    <p class="sidebar-item left-item">
-                        <a href="../processing/leavecourse.php?cid=<?php echo $cid; ?>">Leave Course</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+
 
         <div class="main-content">
-        <p id="course-name"> <?php echo $name[0]['name']; ?> </p>
+            <div class="course-page-header">
+                <div class="left">
+                    <div class="sidebar-content">
+                        <div class="left-sidebar-topic">
+                            <p class="sidebar-item left-item">
+                                <a href="index.php">Home</a>
+                            </p>
+                            <p class="sidebar-item left-item">
+                                <a href="../processing/leavecourse.php?cid=<?php echo $cid; ?>">Leave Course</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p id="course-name"> <?php echo $name[0]['name']; ?> </p>
+            </div>
             <div class="course-message-container">
                 <?php
                 foreach ($messages as $message) {
